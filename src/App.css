@@ -1,0 +1,513 @@
+* {
+  font-size: 24px;
+}
+
+:root {
+  --padding: 1rem;
+  --margin: 5rem 9.583vw;
+  --icon: 30px;
+  --b: 20px;
+  --profile: 4rem;
+  --borderRadius: 30px;
+  --boxShadowEffect: 0px 5px 1px 2px var(--primary);
+  --primary: #495E57;
+  --secondary: #687F6D;
+  --thirdly: #a4b4a7;
+  --fourthly: #F6F2E7;
+  --fifthly: #EAD26E;
+  --motion: cubic-bezier(.32, -0.5, .51, 1.43);
+}
+
+.primaryButton {
+  background: var(--fourthly);
+  border-radius: 10px;
+  color: var(--primary);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: LobsterTwo;
+  padding: calc(var(--padding) / 3) 0;
+}
+
+.secondaryButton {
+  background: none;
+  border-radius: 20px;
+  color: var(--fourthly);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: LobsterTwo;
+  border: 5px solid var(--fourthly);
+  border-bottom: 10px solid var(--fourthly);
+  padding: calc(var(--padding) / 3) 0;
+}
+
+.thirdlyButton {
+  background: none;
+  border-radius: 20px;
+  color: var(--primary);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: LobsterTwo;
+  border: 5px solid var(--primary);
+  border-bottom: 15px solid var(--primary);
+  height: min-content;
+  padding: calc(var(--padding) / 2) 0;
+}
+
+@font-face {
+  font-family: LobsterRegular;
+  src: url(./fonts/Lobster-Regular.ttf);
+}
+
+@font-face {
+  font-family: LobsterTwo;
+  src: url(./fonts/LobsterTwo-Regular.ttf);
+}
+
+@font-face {
+  font-family: Neucha;
+  src: url(./fonts/Neucha-Regular.ttf);
+}
+
+@font-face {
+  font-family: LobsterTwoItalic;
+  src: url(./fonts/LobsterTwo-Italic.ttf);
+}
+
+body {
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  width: 100vw;
+  position: relative;
+  background: linear-gradient(180deg, rgba(246, 242, 231, 1) 14%, rgba(186, 197, 188, 1) 100%);
+}
+
+t {
+  font-family: LobsterRegular;
+  font-size: 5rem;
+  text-transform: uppercase;
+  -webkit-text-stroke: 3px var(--primary);
+  color: transparent;
+}
+
+h1 {
+  margin: 0;
+  color: var(--fourthly);
+  font-family: LobsterTwoItalic;
+  font-size: 2.916666667rem;
+  ;
+}
+
+.boxHeader {
+  font-family: LobsterRegular;
+  text-shadow:
+    -1px 0 var(--fourthly),
+    1px 0 var(--fourthly),
+    0 -1px var(--fourthly),
+    0 1px var(--fourthly);
+  color: var(--secondary);
+  font-size: 4rem;
+}
+
+.SpecialsBox .boxHeader {
+  font-family: LobsterRegular;
+  text-shadow:
+    -1px 0 var(--primary),
+    1px 0 var(--primary),
+    0 -1px var(--primary),
+    0 1px var(--primary);
+  color: var(--thirdly);
+  font-size: 4rem;
+}
+
+h2 {
+  margin: 0;
+  color: var(--fourthly);
+  font-family: LobsterTwo;
+  font-size: 2rem;
+}
+
+h3 {
+  margin: 0;
+  color: var(--fourthly);
+  font-family: LobsterTwo;
+  font-size: 1.5rem;
+}
+
+p {
+  margin: 0;
+  color: var(--fourthly);
+  font-family: Neucha;
+  font-size: 1rem;
+  font-weight: none;
+}
+
+a {
+  float: end;
+  font-size: 2rem;
+  font-family: LobsterRegular;
+  -webkit-text-stroke: 1px var(--fourthly);
+  color: transparent;
+}
+
+.navContainer {
+  animation: paddingExpand 1s var(--motion) forwards;
+  padding: 1.5rem 0 6rem 6rem;
+  overflow: hidden;
+}
+
+@keyframes paddingExpand {
+  from {
+    padding: 0;
+  }
+
+  to {
+    padding: auto;
+  }
+}
+
+.navContainer ul {
+  display: flex;
+}
+
+.leaveBtn {
+  margin: 0;
+  transition: 0.2s all ease-in-out;
+  transform-origin: center center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  offset-path: path("M188.61 131.487C158.11 135.987 54.8104 117.96 11.1098 68.4874C-5.23188 49.9874 -1.8902 4.48743 15.6098 0.487427");
+  offset-rotate: 0deg;
+  animation: leaveTransition 2s ease-in-out forwards;
+}
+
+.leaveBtn span {
+  animation: leaveTransition 2s ease-in-out forwards;
+}
+
+@keyframes leaveTransition {
+  0% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(40px, 40px) scale(0.5);
+  }
+
+  50% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(0px, 0px) scale(1);
+  }
+
+  100% {
+    offset-distance: auto;
+    transform: auto;
+  }
+}
+
+@keyframes aboutLeafTransition {
+  0% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(40px, 40px) scale(0.1);
+  }
+
+  50% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(0px, 0px);
+  }
+
+  100% {
+    offset-distance: 100%;
+    transform: auto;
+  }
+}
+
+.leaveBtn:nth-of-type(1) {
+  animation: aboutLeafTransition 2s ease-in-out forwards;
+  transform: scale(0.7) translate(40px, -30px);
+  offset-distance: 100%;
+}
+
+.leaveBtn:nth-of-type(2) {
+  offset-distance: 100%;
+  transform: translate(-80px, 40px) rotate(-20deg);
+}
+
+.leaveBtn:nth-of-type(3) {
+  offset-distance: 66%;
+  transform: translate(-43px, 30px);
+}
+
+.leaveBtn:nth-of-type(4) {
+  offset-distance: 33%;
+  transform: translate(-50px, 30px) scale(0.9);
+}
+
+.leaveBtn:nth-of-type(5) {
+  offset-distance: 0%;
+  transform: translate(-50px, 30px) scale(0.8);
+}
+
+.leaveBtn:nth-of-type(1) .leafImg {
+  animation: aboutLeafTransition 2s ease-in-out forwards;
+  transform: rotate(190deg);
+}
+
+.leaveBtn:nth-of-type(2) .leafImg {
+  animation: leaveTransition 2s ease-in-out forwards;
+  transform: rotate(45deg);
+}
+
+.leaveBtn:nth-of-type(3) .leafImg {
+  animation: leaveTransition 2s ease-in-out forwards;
+  transform: rotate(0deg);
+}
+
+.leaveBtn:nth-of-type(4) .leafImg {
+  animation: leaveTransition 2s ease-in-out forwards;
+  transform: rotate(-45deg);
+}
+
+.leaveBtn:nth-of-type(5) .leafImg {
+  animation: leaveTransition 2s ease-in-out forwards;
+  transform: rotate(-90deg);
+}
+
+.leaveBtn:hover {
+  filter: brightness(150%);
+}
+
+.littleLemonLogo {
+  transform-origin: center center;
+  transform: rotate(0deg);
+  animation: lemonSpin 1s var(--motion) forwards;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes lemonSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lemonFallAnim {
+  opacity: 0;
+  transform: translateY(-500px);
+  animation: lemonFall 0.5s var(--motion) forwards;
+}
+
+@keyframes lemonFall {
+  0% {
+    opacity: 0;
+    transform: translateY(-500px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.FallingLemonsTop path {
+  transform-origin: center center;
+  display: block;
+}
+
+.FallingLemonsTop {
+  overflow: visible;
+  transform: scale(2);
+}
+
+.FallingLemonsOutlineLeft path {
+  fill: var(--secondary);
+  transform-origin: center center;
+  display: block;
+}
+
+.FallingLemonsOutlineRight path {
+  fill: #687f6dbf;
+  transform-origin: center center;
+  display: block;
+}
+
+.boxTopRow {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  gap: var(--padding);
+  align-items: center;
+}
+
+.TestamonialSheet {
+  box-shadow: var(--boxShadowEffect);
+}
+
+.TestamonialSheet span:nth-of-type(2) p::first-letter {
+  float: end;
+  font-size: 1.25rem;
+  font-family: LobsterRegular;
+  color: var(--primary);
+  margin: 0;
+}
+
+.FallingLemonsOutlineLeft {
+  transform: translateX(-20%);
+}
+
+.FallingLemonsOutlineRight {
+  transform: translateX(0%) translateY(-20%);
+}
+
+.FallingLemonsOutlineLeft,
+.FallingLemonsOutlineRight,
+.FallingLemonsTop,
+.LowerRightLemon {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.FallingLemonsOutlineRight {
+  transform: translateX(-20%) translateY(-20%);
+}
+
+.LowerRightLemon {
+  transform: translateY(20%);
+}
+
+.footerList li p {
+  color: var(--fourthly);
+}
+
+.Footer span {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  gap: var(--padding);
+}
+
+.Footer .content {
+  padding-bottom: 10px;
+  border-bottom: 5px solid var(--thirdly);
+}
+
+input {
+  border: none;
+  line-height: 0;
+}
+
+input:focus {
+  border: none;
+  outline: none;
+}
+
+.iconRow img {
+  width: 40px;
+  height: 40px;
+}
+
+.iconRow {
+  display: flex;
+}
+
+.infoBox span p::first-letter {
+  float: start;
+  font-size: 2rem;
+  font-family: LobsterRegular;
+  color: var(--primary);
+  margin: 0;
+}
+
+.infoBox img {
+  border-radius: 20px;
+}
+
+.lemonBkg {
+  z-index: -1;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 90%;
+  overflow: hidden;
+}
+
+.lemonBkg .lol {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.lemonBkg .lol span {
+  overflow: visible;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+form input,
+form .secondaryButton {
+  width: 100%;
+  z-index: 1;
+}
+
+.menuSec {
+  border-top: 6px solid var(--primary);
+  margin: 5rem 0;
+}
+
+.sectionCenter {
+  margin: 2rem 0;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  -webkit-text-stroke: 0px var(--secondary);
+  color: var(--thirdly);
+  font-size: 6rem;
+}
+
+.menuSec t:nth-of-type(1) {
+  transform: translateY(-100%);
+  font-size: 3rem;
+  -webkit-text-stroke: 2.5px var(--primary);
+}
+
+.reservationBox input {
+  flex-grow: 1;
+  border-radius: var(--b);
+  border: var(--fourthly) 3px solid;
+  background: #fcfffd;
+  background: linear-gradient(0deg, rgba(252, 255, 253, 0.268) 23%, rgba(255, 255, 255, 0.13) 100%);
+}
+
+.reservationBox .line {
+  width: 100%;
+  position: relative;
+}
+
+.reservationBox .line h3 {
+  color: var(--secondary);
+  text-shadow:
+    -1px 0 var(--fourthly),
+    1px 0 var(--fourthly),
+    0 -1px var(--fourthly),
+    0 1px var(--fourthly);
+}
+
+.reservationBox {
+  z-index: 1;
+}
