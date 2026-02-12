@@ -15,6 +15,7 @@
   --thirdly: #a4b4a7;
   --fourthly: #F6F2E7;
   --fifthly: #EAD26E;
+  --sixthly: #D3B94F;
   --motion: cubic-bezier(.32, -0.5, .51, 1.43);
 }
 
@@ -229,6 +230,40 @@ a {
   }
 }
 
+@keyframes leaveTransitionReverse {
+  0% {
+    offset-distance: auto;
+    transform: auto;
+  }
+
+  50% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(0px, 0px) scale(1);
+  }
+
+  100% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(40px, 40px) scale(0.5);
+  }
+}
+
+@keyframes aboutLeafTransitionReverse {
+  0% {
+    offset-distance: 100%;
+    transform: auto;
+  }
+
+  50% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(0px, 0px);
+  }
+
+  100% {
+    offset-distance: 100%;
+    transform: rotate(0deg) translate(40px, 40px) scale(0.1);
+  }
+}
+
 .leaveBtn:nth-of-type(1) {
   animation: aboutLeafTransition 2s ease-in-out forwards;
   transform: scale(0.7) translate(40px, -30px);
@@ -278,6 +313,29 @@ a {
 .leaveBtn:nth-of-type(5) .leafImg {
   animation: leaveTransition 2s ease-in-out forwards;
   transform: rotate(-90deg);
+}
+
+.navContainer.reverse .leaveBtn {
+  animation: leaveTransitionReverse 2s ease-in-out forwards;
+}
+
+.navContainer.reverse .leaveBtn span {
+  animation: leaveTransitionReverse 2s ease-in-out forwards;
+}
+
+.navContainer.reverse .leaveBtn:nth-of-type(1) {
+  animation: aboutLeafTransitionReverse 2s ease-in-out forwards;
+}
+
+.navContainer.reverse .leaveBtn:nth-of-type(1) .leafImg {
+  animation: aboutLeafTransitionReverse 2s ease-in-out forwards;
+}
+
+.navContainer.reverse .leaveBtn:nth-of-type(2) .leafImg,
+.navContainer.reverse .leaveBtn:nth-of-type(3) .leafImg,
+.navContainer.reverse .leaveBtn:nth-of-type(4) .leafImg,
+.navContainer.reverse .leaveBtn:nth-of-type(5) .leafImg {
+  animation: leaveTransitionReverse 2s ease-in-out forwards;
 }
 
 .leaveBtn:hover {
@@ -486,6 +544,332 @@ form .secondaryButton {
   -webkit-text-stroke: 2.5px var(--primary);
 }
 
+.menuSec t {
+  white-space: nowrap;
+}
+
+.menuPage {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+
+}
+
+.menuHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.menuHeaderLogo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.menuHeaderLogo img {
+  height: 80px;
+  object-fit: contain;
+}
+
+.menuTitle {
+  font-size: 7rem;
+  letter-spacing: 0.2rem;
+}
+
+.menuHero {
+  display: flex;
+}
+
+.menuHeroCard {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: center;
+  width: 100%;
+  background: linear-gradient(135deg, rgba(104, 127, 109, 0.95) 0%, rgba(73, 94, 87, 0.95) 100%);
+  border-radius: var(--borderRadius);
+  padding: calc(var(--padding) * 2);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+}
+
+.menuHeroCard::after {
+  content: "";
+  position: absolute;
+  inset: auto -10% -30% -10%;
+  height: 60%;
+  background: rgba(246, 242, 231, 0.08);
+  border-radius: 50%;
+}
+
+.menuHeroText {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.menuHeroLabel {
+  font-family: LobsterTwo;
+  color: var(--fifthly);
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-size: 1rem;
+}
+
+.menuHeroTitle {
+  font-size: 3rem;
+}
+
+.menuHeroPrice {
+  font-size: 1.4rem;
+  color: var(--fourthly);
+}
+
+.menuHeroDesc {
+  max-width: 420px;
+}
+
+.menuHeroButton {
+  width: max-content;
+  padding: 0.6rem 2rem;
+}
+
+.menuHeroImageWrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuHeroImageWrap img {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 8px solid rgba(246, 242, 231, 0.8);
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.18);
+}
+
+.menuHeroBadge {
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  background: var(--fifthly);
+  color: var(--primary);
+  font-family: LobsterTwo;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menuSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: var(--margin);
+}
+
+.menuRow {
+  position: absolute;
+  overflow: hidden;
+}
+
+.menuRowTrack {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: menuScroll 30s linear infinite;
+}
+
+.menuRow:hover .menuRowTrack {
+  animation-play-state: paused;
+}
+
+@keyframes menuScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 0 0 auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--profile);
+}
+
+.menuItemThumb {
+  width: calc(var(--profile) * 2);
+  height: calc(var(--profile) * 2);
+  overflow: hidden;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.menuItemThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: center center;
+}
+
+.menuItemBody {
+  transform: translateX(-320px);
+  width: 0;
+  height: calc(var(--profile) * 2);
+  border-radius: var(--profile);
+  background: var(--sixthly);
+  margin: 0;
+  padding: 0;
+  color: var(--primary);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.35s ease;
+  position: relative;
+  left: calc(-1 * calc(var(--profile) * 2));
+  padding-left: 0;
+}
+
+.menuItem:hover {
+  .menuItemBody {
+    width: 320px;
+    transform: translateX(0);
+    padding-left: calc(var(--profile) * 2);
+  }
+
+  .menuItemThumb img {
+    border-radius: 100% 0 0 100%;
+    animation: lemonSpin 0.75s ease-in-out;
+  }
+}
+
+.menuItemLead {
+  font-family: LobsterTwo;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.2rem;
+}
+
+.menuItemBody h3 {
+  font-family: LobsterRegular;
+  font-size: 2rem;
+  color: transparent;
+  text-shadow:
+    -1px 0 var(--primary),
+    1px 0 var(--primary),
+    0 -1px var(--primary),
+    0 1px var(--primary);
+}
+
+.menuItemBody p {
+  color: var(--primary);
+  font-size: 0.95rem;
+}
+
+.menuItemRating {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.menuItemStars {
+  position: relative;
+  font-size: 1.1rem;
+  color: rgba(73, 94, 87, 0.35);
+  line-height: 1;
+  letter-spacing: 0.2rem;
+  display: inline-block;
+}
+
+.menuItemStars::before {
+  content: "★★★★★";
+}
+
+.menuItemStarsFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  color: var(--fourthly);
+  white-space: nowrap;
+}
+
+.menuItemStarsFill::before {
+  content: "★★★★★";
+}
+
+.menuItemButton {
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-family: LobsterTwo;
+  border-radius: 999px;
+  padding: 0.35rem 1.4rem;
+  width: max-content;
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .menuHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menuTitle {
+    font-size: 5rem;
+  }
+
+  .menuItem {
+    width: 160px;
+  }
+
+  .menuItem:hover {
+    width: 420px;
+  }
+
+  .menuItem:hover .menuItemBody {
+    width: 260px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menuHeaderLogo img {
+    height: 60px;
+  }
+
+  .menuRowTrack {
+    gap: 1.5rem;
+  }
+
+  .menuItem {
+    width: 140px;
+  }
+
+  .menuItem:hover {
+    width: 340px;
+  }
+
+  .menuItem:hover .menuItemBody {
+    width: 200px;
+  }
+}
+
 .reservationBox input {
   flex-grow: 1;
   border-radius: var(--b);
@@ -510,4 +894,20 @@ form .secondaryButton {
 
 .reservationBox {
   z-index: 1;
+}
+
+/* Define reverse animations for lemon elements */
+@keyframes lemonSpinReverse {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Add classes for reverse animations */
+.littleLemonLogo.reverse {
+  animation: lemonSpinReverse 1s var(--motion) forwards;
 }

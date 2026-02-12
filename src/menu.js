@@ -1,16 +1,100 @@
 import Footer from "./Footer.js";
 import "./App.css";
+import LittleLemonLogo from "./img/littleLemonLogo.svg";
+import MenuIcon from "./img/menu.svg";
+import Bread from "./menuItems/bread.png";
+import ChickenPasta from "./menuItems/chicken pasta.png";
+import Chicken from "./menuItems/chicken.png";
+import GreekSalad from "./menuItems/greek salad.png";
+import LemonCake from "./menuItems/lemon cake.png";
+import LemonTea from "./menuItems/lemon tea.png";
+import Lemonade from "./menuItems/lemonade.png";
+import Pancake from "./menuItems/pancake.png";
+import Pasta from "./menuItems/pasta.png";
+import Pizza from "./menuItems/pizza.png";
+import RedWine from "./menuItems/red wine.png";
+import Salmon from "./menuItems/salmon.png";
+import StrawberryCake from "./menuItems/strawberry cake.png";
+import StrawberryLemonade from "./menuItems/strawberry lemonade.png";
+import Tomato from "./menuItems/tomato.png";
+import VanillaCake from "./menuItems/vanilla cake.png";
+import Waffle from "./menuItems/waffle.png";
 
 export function Menu() {
+    const sections = [
+        {
+            title: "Appetizers",
+            items: [
+                { name: "Bread", description: "Fresh baked bread served warm with herb butter.", percentage: 82, img: Bread },
+                { name: "Tomato", description: "Marinated tomatoes with olive oil, basil, and sea salt.", percentage: 76, img: Tomato },
+                { name: "Greek Salad", description: "Crisp greens, feta, olives, and lemon vinaigrette.", percentage: 91, img: GreekSalad },
+            ],
+        },
+        {
+            title: "Main Courses",
+            items: [
+                { name: "Chicken", description: "Roasted chicken with lemon, garlic, and thyme.", percentage: 88, img: Chicken },
+                { name: "Salmon", description: "Pan-seared salmon with citrus glaze and herbs.", percentage: 90, img: Salmon },
+                { name: "Chicken Pasta", description: "Creamy pasta with grilled chicken and parmesan.", percentage: 85, img: ChickenPasta },
+                { name: "Pasta", description: "Classic pasta tossed with olive oil and basil.", percentage: 80, img: Pasta },
+                { name: "Pizza", description: "Stone-baked pizza with fresh mozzarella and tomato.", percentage: 87, img: Pizza },
+            ],
+        },
+        {
+            title: "Drinks",
+            items: [
+                { name: "Lemonade", description: "House lemonade with a bright citrus finish.", percentage: 78, img: Lemonade },
+                { name: "Strawberry Lemonade", description: "Sweet strawberries blended into fresh lemonade.", percentage: 83, img: StrawberryLemonade },
+                { name: "Lemon Tea", description: "Iced tea infused with lemon and mint.", percentage: 74, img: LemonTea },
+                { name: "Red Wine", description: "Bold red blend with a smooth finish.", percentage: 81, img: RedWine },
+            ],
+        },
+        {
+            title: "Desserts",
+            items: [
+                { name: "Lemon Cake", description: "Soft lemon sponge with a zesty glaze.", percentage: 94, img: LemonCake },
+                { name: "Strawberry Cake", description: "Light cake layered with strawberries and cream.", percentage: 89, img: StrawberryCake },
+                { name: "Vanilla Cake", description: "Classic vanilla cake with whipped buttercream.", percentage: 86, img: VanillaCake },
+                { name: "Pancake", description: "Fluffy pancakes with syrup and berries.", percentage: 84, img: Pancake },
+                { name: "Waffle", description: "Golden waffles with citrus honey drizzle.", percentage: 88, img: Waffle },
+            ],
+        },
+    ];
+
     return (
         <>
-            <div style={{ display: "flex", flexDirection: "column", margin: "0 9.583vw", overflow: "hidden", position: "relative" }}>
+            <div className="menuPage">
 
-                <div className="menuSec" style={{ position: "relative", display: "flex" }}>
-                    <t>section</t>
-                    <t className="sectionCenter">section</t>
-                </div>
-
+                {sections.map((section) => (
+                    <section key={section.title} className="menuSection">
+                        <div className="menuSec" style={{ position: "relative", display: "flex" }}>
+                            <t>{section.title}</t>
+                            <t className="sectionCenter">{section.title}</t>
+                        </div>
+                        <div className="menuRow">
+                            <div className="menuRowTrack">
+                                {[...section.items, ...section.items].map((item, index) => (
+                                    <article key={`${item.name}-${index}`} className="menuItem">
+                                        <div className="menuItemThumb">
+                                            <img src={item.img} alt={item.name} />
+                                        </div>
+                                        <div className="menuItemBody">
+                                            <p>Enjoy Little Lemon's signature</p>
+                                            <h3>{item.name}</h3>
+                                            <p>{item.description}</p>
+                                            <div className="menuItemRating">
+                                                <div className="menuItemStars">
+                                                    <span style={{ width: `${item.percentage}%` }} className="menuItemStarsFill"></span>
+                                                </div>
+                                            </div>
+                                            <button className="menuItemButton">Add</button>
+                                        </div>
+                                    </article>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                ))}
             </div>
 
             <Footer />

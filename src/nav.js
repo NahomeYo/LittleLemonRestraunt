@@ -7,12 +7,14 @@ import leafIcon from "./img/leaf.png";
 import logo from "./img/littleLemonIcon.svg"
 import './App.css';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const Nav = () => {
     const [pageNum, setPageNum] = useState(0);
     const [pageTitle, setPageTitle] = useState("home");
     const [leafArray, setLeafArray] = useState([]);
+    const [isReverse, setIsReverse] = useState(false);
+    const logoRef = useRef(null);
 
     const navigate = useNavigate();
 
@@ -70,6 +72,16 @@ export const Nav = () => {
         }
     }, [pageNum]);
 
+    useEffect(() => {
+        const logo = logoRef.current;
+        if (logo) {
+            logo.classList.toggle("reverse", isReverse);
+            logo.style.animation = "none";
+            logo.offsetHeight;
+            logo.style.animation = "";
+        }
+    }, [isReverse]);
+
     function leafHover(event) {
         let btn = event.currentTarget;
 
@@ -103,9 +115,15 @@ export const Nav = () => {
 
     return (
         <>
-            <div className="navContainer" style={{ position: "fixed", right: 0, background: "var(--fifthly)", borderBottomLeftRadius: "100%", zIndex: 999 }}>
+            <div className={`navContainer${isReverse ? " reverse" : ""}`} style={{ position: "fixed", right: 0, background: "var(--fifthly)", borderBottomLeftRadius: "100%", zIndex: 999 }}>
                 <ul>
-                    <img src={logo} className="littleLemonLogo" style={{ zIndex: 999 }} />
+                    <img
+                        ref={logoRef}
+                        src={logo}
+                        className="littleLemonLogo"
+                        style={{ zIndex: 999 }}
+                        onClick={() => setIsReverse((prev) => !prev)}
+                    />
                     <span style={{ position: "absolute" }}>
                         {leaveBtn("Home", homeIcon)}
                         {leaveBtn("About", aboutIcon)}
