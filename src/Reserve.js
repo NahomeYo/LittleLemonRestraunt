@@ -1,59 +1,88 @@
+import { useState } from "react";
 import Footer from "./Footer.js";
 import "./App.css";
 import { FallingLemonsColored } from "./fallingLemons";
 import Skyline from "./img/skyline.svg";
 
 export function Reserve() {
+    const [formData, setFormData] = useState({
+        date: "",
+        time: "",
+        guests: 1,
+        occasion: "",
+    });
+
+    function handleChange(event) {
+        const { name, value } = event.target;
+        setFormData((previous) => ({
+            ...previous,
+            [name]: name === "guests" ? Number(value) : value,
+        }));
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        window.alert(`Reservation requested for ${formData.date} at ${formData.time} for ${formData.guests} guest(s).`);
+    }
+
     return (
         <div style={{ height: "100%" }}>
-            <form className="reservationBox" style={{ gap: "var(--padding)", display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", margin: "0 9.583vw 5rem 9.583vw", borderRadius: "var(--borderRadius)", overflow: "hidden", background: "var(--secondary)", position: "relative", padding: "var(--padding) calc(var(--padding) * 2)" }}>
+            <form className="reservationBox" onSubmit={handleSubmit}>
+                <span className="lineWrap">
+                    <div className="line" aria-hidden="true"></div>
+                    <h3>Choose Date</h3>
+                    <input
+                        type="date"
+                        name="date"
+                        required
+                        value={formData.date}
+                        onChange={handleChange}
+                    />
+                </span>
 
-                <div className="line">
-                    <h3>Date</h3>
-                    <input type="date" style={{
-                        height: "100%", flexBasis: "100%", flexGrow: 2, borderRadius: "20px", textAlign: "start",
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        resize: "none"
-                    }} />
-                </div>
+                <span className="lineWrap">
+                    <div className="line" aria-hidden="true"></div>
+                    <h3>Choose Time</h3>
+                    <input
+                        type="time"
+                        name="time"
+                        required
+                        step="900"
+                        value={formData.time}
+                        onChange={handleChange}
+                    />
+                </span>
 
-                <div className="line">
-                <h3>Time</h3>
-                    <input type="time" style={{
-                        height: "100%", flexBasis: "100%", flexGrow: 2, borderRadius: "20px", textAlign: "start",
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        resize: "none"
-                    }} />
-                </div>
+                <span className="lineWrap">
+                    <div className="line" aria-hidden="true"></div>
+                    <h3>Number Of Guests</h3>
+                    <input
+                        type="number"
+                        name="guests"
+                        min="1"
+                        required
+                        value={formData.guests}
+                        onChange={handleChange}
+                    />
+                </span>
 
-                <div className="line">
-                <h3># of Guests</h3>
-                    <input type="number" style={{
-                        height: "100%", flexBasis: "100%", flexGrow: 2, borderRadius: "20px", textAlign: "start",
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        resize: "none"
-                    }} />
-                </div>
+                <span className="lineWrap">
+                    <div className="line" aria-hidden="true"></div>
+                    <h3>Occasion</h3>
+                    <input
+                        type="text"
+                        name="occasion"
+                        value={formData.occasion}
+                        onChange={handleChange}
+                    />
+                </span>
 
-                <div className="line">
-                <h3>Occasion</h3>
-                    <input type="text" style={{
-                        height: "100%", flexBasis: "100%", flexGrow: 2, borderRadius: "20px", textAlign: "start",
-                        padding: "10px",
-                        boxSizing: "border-box",
-                        resize: "none"
-                    }} />
-                </div>
-
-                <div className="secondaryButton" style={{ flexGrow: 0 }}>
+                <button type="submit" className="reservationSubmit">
                     Make Your Reservation
-                </div>
+                </button>
 
-                <img style={{ position: "absolute", width: "100%", left: 0, bottom: 0, zIndex: -1 }} src={Skyline} />
-                <div style={{ position: "absolute", right: "-10%", bottom: "-40%", zIndex: -1 }}>
+                <img className="reservationSkyline" src={Skyline} alt="" />
+                <div className="reservationLemons">
                     <FallingLemonsColored />
                 </div>
             </form>

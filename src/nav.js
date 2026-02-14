@@ -74,10 +74,12 @@ export const Nav = () => {
 
     useEffect(() => {
         const logo = logoRef.current;
-        if (logo) {
+
+        const menuItemBody = document.querySelector(".menuItemBody");
+
+        if (logo && menuItemBody) {
             logo.classList.toggle("reverse", isReverse);
             logo.style.animation = "none";
-            logo.offsetHeight;
             logo.style.animation = "";
         }
     }, [isReverse]);

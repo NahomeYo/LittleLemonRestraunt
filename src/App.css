@@ -23,23 +23,24 @@
   background: var(--fourthly);
   border-radius: 10px;
   color: var(--primary);
+  border: none;
+  padding: calc(var(--padding) / 3) 0;
+}
+
+.primaryButton,
+.secondaryButton,
+.thirdlyButton {
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: LobsterTwo;
-  padding: calc(var(--padding) / 3) 0;
 }
 
 .secondaryButton {
   background: none;
   border-radius: 20px;
   color: var(--fourthly);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: LobsterTwo;
   border: 5px solid var(--fourthly);
   border-bottom: 10px solid var(--fourthly);
   padding: calc(var(--padding) / 3) 0;
@@ -49,11 +50,6 @@
   background: none;
   border-radius: 20px;
   color: var(--primary);
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: LobsterTwo;
   border: 5px solid var(--primary);
   border-bottom: 15px solid var(--primary);
   height: min-content;
@@ -94,10 +90,11 @@ body {
 
 t {
   font-family: LobsterRegular;
-  font-size: 5rem;
+  font-size: 7rem;
   text-transform: uppercase;
   -webkit-text-stroke: 3px var(--primary);
   color: transparent;
+  letter-spacing: 0.1rem;
 }
 
 h1 {
@@ -105,7 +102,7 @@ h1 {
   color: var(--fourthly);
   font-family: LobsterTwoItalic;
   font-size: 2.916666667rem;
-  ;
+  font-weight: normal;
 }
 
 .boxHeader {
@@ -135,6 +132,7 @@ h2 {
   color: var(--fourthly);
   font-family: LobsterTwo;
   font-size: 2rem;
+  font-weight: normal;
 }
 
 h3 {
@@ -142,6 +140,7 @@ h3 {
   color: var(--fourthly);
   font-family: LobsterTwo;
   font-size: 1.5rem;
+  font-weight: normal;
 }
 
 p {
@@ -149,7 +148,7 @@ p {
   color: var(--fourthly);
   font-family: Neucha;
   font-size: 1rem;
-  font-weight: none;
+  font-weight: normal;
 }
 
 a {
@@ -173,6 +172,16 @@ a {
 
   to {
     padding: auto;
+  }
+}
+
+@keyframes paddingShrink {
+  from {
+    padding: auto;
+  }
+
+  to {
+    padding: 0;
   }
 }
 
@@ -338,6 +347,10 @@ a {
   animation: leaveTransitionReverse 2s ease-in-out forwards;
 }
 
+.navContainer.reverse {
+  animation: paddingShrink 1s var(--motion) forwards;
+}
+
 .leaveBtn:hover {
   filter: brightness(150%);
 }
@@ -422,7 +435,7 @@ a {
 }
 
 .FallingLemonsOutlineRight {
-  transform: translateX(0%) translateY(-20%);
+  transform: translateX(-20%) translateY(-20%);
 }
 
 .FallingLemonsOutlineLeft,
@@ -432,10 +445,6 @@ a {
   position: relative;
   height: 100%;
   width: 100%;
-}
-
-.FallingLemonsOutlineRight {
-  transform: translateX(-20%) translateY(-20%);
 }
 
 .LowerRightLemon {
@@ -460,7 +469,7 @@ a {
 
 input {
   border: none;
-  line-height: 0;
+  line-height: 1.2;
 }
 
 input:focus {
@@ -523,7 +532,7 @@ form .secondaryButton {
 }
 
 .menuSec {
-  border-top: 6px solid var(--primary);
+  border-top: 6px solid var(--secondary);
   margin: 5rem 0;
 }
 
@@ -540,8 +549,17 @@ form .secondaryButton {
 
 .menuSec t:nth-of-type(1) {
   transform: translateY(-100%);
+  width: 100%;
   font-size: 3rem;
-  -webkit-text-stroke: 2.5px var(--primary);
+  -webkit-text-stroke: 2.5px var(--secondary);
+}
+
+.menuSection:nth-of-type(even) .menuSec t:nth-of-type(1) {
+  text-align: end;
+}
+
+.menuSection:nth-of-type(odd) .menuSec t:nth-of-type(1) {
+  text-align: start;
 }
 
 .menuSec t {
@@ -671,6 +689,7 @@ form .secondaryButton {
 }
 
 .menuSection {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -679,6 +698,7 @@ form .secondaryButton {
 
 .menuRow {
   position: absolute;
+  top: 50%;
   overflow: hidden;
 }
 
@@ -686,7 +706,14 @@ form .secondaryButton {
   display: flex;
   gap: 2.5rem;
   width: max-content;
-  animation: menuScroll 30s linear infinite;
+}
+
+.menuSection:nth-of-type(even) .menuRowTrack {
+  animation: menuScroll 5s linear infinite;
+}
+
+.menuSection:nth-of-type(odd) .menuRowTrack {
+  animation: menuScrollReverse 5s linear infinite;
 }
 
 .menuRow:hover .menuRowTrack {
@@ -700,6 +727,16 @@ form .secondaryButton {
 
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes menuScrollReverse {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(50%);
   }
 }
 
@@ -746,17 +783,15 @@ form .secondaryButton {
   padding-left: 0;
 }
 
-.menuItem:hover {
-  .menuItemBody {
-    width: 320px;
-    transform: translateX(0);
-    padding-left: calc(var(--profile) * 2);
-  }
+.menuItem:hover .menuItemBody {
+  width: 320px;
+  transform: translateX(0);
+  padding-left: calc(var(--profile) * 2);
+}
 
-  .menuItemThumb img {
-    border-radius: 100% 0 0 100%;
-    animation: lemonSpin 0.75s ease-in-out;
-  }
+.menuItem:hover .menuItemThumb img {
+  border-radius: 100% 0 0 100%;
+  animation: lemonSpin 0.75s ease-in-out;
 }
 
 .menuItemLead {
@@ -871,32 +906,154 @@ form .secondaryButton {
 }
 
 .reservationBox input {
-  flex-grow: 1;
-  border-radius: var(--b);
-  border: var(--fourthly) 3px solid;
-  background: #fcfffd;
-  background: linear-gradient(0deg, rgba(252, 255, 253, 0.268) 23%, rgba(255, 255, 255, 0.13) 100%);
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: var(--fourthly);
+  font-family: Neucha;
+  font-size: 1.2rem;
+  padding: 0;
+  height: 2.4rem;
 }
 
-.reservationBox .line {
+.reservationBox .lineWrap {
   width: 100%;
+  min-height: 68px;
+  display: block;
   position: relative;
 }
 
-.reservationBox .line h3 {
-  color: var(--secondary);
-  text-shadow:
-    -1px 0 var(--fourthly),
-    1px 0 var(--fourthly),
-    0 -1px var(--fourthly),
-    0 1px var(--fourthly);
+.reservationBox .line {
+  --label-cut-start: 1.1rem;
+  --label-cut-end: clamp(10.8rem, 26vw, 14.5rem);
+  --label-cut-depth: 1.15rem;
+  position: absolute;
+  inset: 0;
+  border: 5px solid rgba(246, 242, 231, 0.85);
+  border-radius: 14px;
+  box-sizing: border-box;
+  z-index: 1;
+  clip-path: polygon(0 0,
+      var(--label-cut-start) 0,
+      var(--label-cut-start) var(--label-cut-depth),
+      var(--label-cut-end) var(--label-cut-depth),
+      var(--label-cut-end) 0,
+      100% 0,
+      100% 100%,
+      0 100%);
+}
+
+.reservationBox .lineWrap h3 {
+  position: absolute;
+  left: 1.4rem;
+  top: -1rem;
+  background: var(--secondary);
+  color: var(--fourthly);
+  padding: 0 0.6rem;
+  font-family: Neucha;
+  font-size: 1.5rem;
+  letter-spacing: 0.04rem;
+  z-index: 2;
+  font-weight: 900;
+}
+
+.reservationBox .lineWrap input {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  margin: 0;
+  z-index: 2;
+  overflow: visible;
+  line-height: 1;
 }
 
 .reservationBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 9.583vw 5rem 9.583vw;
+  border-radius: 38px;
+  overflow: hidden;
+  background: var(--secondary);
+  position: relative;
+  padding: clamp(1.5rem, 2.8vw, 2.4rem) clamp(1rem, 4vw, 3.4rem) 2rem;
+  border: 10px solid rgba(164, 180, 167, 0.8);
+  box-sizing: border-box;
   z-index: 1;
 }
 
-/* Define reverse animations for lemon elements */
+.reservationSubmit {
+  width: 100%;
+  z-index: 1;
+  border: none;
+  border-radius: 12px;
+  background: var(--fourthly);
+  color: var(--secondary);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: LobsterTwo;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  line-height: 1;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+}
+
+.reservationSkyline {
+  position: absolute;
+  width: 125%;
+  left: -12.5%;
+  bottom: -8%;
+  opacity: 0.24;
+  z-index: 0;
+}
+
+.reservationLemons {
+  position: absolute;
+  right: -10%;
+  bottom: -40%;
+  opacity: 0.12;
+  z-index: 0;
+}
+
+.reservationBox input::-webkit-calendar-picker-indicator {
+  filter: invert(92%) sepia(8%) saturate(276%) hue-rotate(341deg) brightness(112%) contrast(92%);
+}
+
+@media (max-width: 850px) {
+  .reservationBox {
+    margin: 0 5vw 4rem 5vw;
+    padding: 1.4rem 1rem 1.5rem;
+  }
+
+  .reservationBox .lineWrap {
+    min-height: 58px;
+  }
+
+  .reservationBox .line {
+    --label-cut-start: 0.8rem;
+    --label-cut-end: clamp(8.4rem, 52vw, 11.8rem);
+    --label-cut-depth: 1rem;
+  }
+
+  .reservationBox .lineWrap h3 {
+    font-size: 1.2rem;
+    left: 1rem;
+    top: -0.85rem;
+  }
+
+  .reservationBox input {
+    font-size: 1rem;
+    height: 2.1rem;
+  }
+}
+
 @keyframes lemonSpinReverse {
   0% {
     transform: rotate(360deg);
@@ -907,7 +1064,68 @@ form .secondaryButton {
   }
 }
 
-/* Add classes for reverse animations */
 .littleLemonLogo.reverse {
   animation: lemonSpinReverse 1s var(--motion) forwards;
+}
+
+.lemonLoad {
+  animation: bounceSlice 2s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
+
+  img {
+    transform-origin: center center;
+  }
+
+  img:nth-of-type(1) {
+    animation: breakLeft 2s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
+  }
+
+  img:nth-of-type(2) {
+    animation: breakRight 2s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
+  }
+}
+
+@keyframes bounceSlice {
+  0% {
+    transform: translateY(-90px);
+  }
+
+  20% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-90px);
+  }
+
+  60% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes breakLeft {
+  45% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+
+  80% {
+    transform: translateX(-100px) translateY(50px) rotate(-90deg);
+  }
+
+  100% {
+    transform: translateX(-100px) translateY(50px) rotate(-90deg);
+  }
+}
+
+@keyframes breakRight {
+  45% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+
+  80% {
+    transform: translateX(100px) translateY(50px) rotate(90deg);
+  }
+
+  100% {
+    transform: translateX(100px) translateY(50px) rotate(90deg);
+  }
 }

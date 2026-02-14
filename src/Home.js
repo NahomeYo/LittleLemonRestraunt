@@ -61,7 +61,7 @@ export function Home() {
 
     const SpecialsBox = () => {
         return (
-            <div className="SpecialsBox" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", margin: "var(--margin)", overflow: "hidden", position: "relative", padding: "var(--padding) calc(var(--padding) * 2)", gap: "var(--padding)" }}>
+            <div className="SpecialsBox" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", margin: "var(--margin)", overflow: "hidden", position: "relative", gap: "var(--padding)" }}>
                 <span className="boxTopRow">
                     <h1 className="boxHeader" style={{ flexGrow: 0 }}>Specials</h1>
                     <div style={{ flexGrow: 2 }} className="thirdlyButton">Online Menu</div>

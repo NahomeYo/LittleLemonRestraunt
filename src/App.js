@@ -3,10 +3,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Nav } from "./nav";
 import { Home } from "./Home";
-import { About } from "./About";
 import { Menu } from "./menu";
 import { Reserve } from "./Reserve";
-import { OrderOnline } from "./OrderOnline";
 import { LoadingScreen } from "./LoadingScreen";
 import LowerRightLemon from "./img/lowerRightLemon.svg";
 import { FallingLemons, FallingLemonsOutlineLeft, FallingLemonsOutlineRight } from "./fallingLemons";
@@ -18,7 +16,7 @@ export function AppContent() {
 
   return (
     <>
-      {/* <LoadingScreen loading={loading} setLoading={setLoading} /> */}
+      <LoadingScreen loading={loading} setLoading={setLoading} /> 
       <Nav />
       <Routes>
         <Route
@@ -27,14 +25,11 @@ export function AppContent() {
             <Home />
           }
         />
-        <Route path="/About" element={<About />} />
         <Route path="/Menu" element={<Menu />} />
         <Route path="/Reserve" element={<Reserve />} />
-        <Route path="/OrderOnline" element={<OrderOnline />} />
       </Routes>
 
       <div className="lemonBkg">
-
         <span className="lol" style={{ display: "grid", height: "100%", gridTemplateRows: "repeat(4, 25%)", gridTemplateColumns: "repeat(1, auto)", flexBasis: "50%" }}>
           <span></span>
 
@@ -55,13 +50,11 @@ export function AppContent() {
 
           <span></span>
 
-          {!isReservePage && <span>
+          {!isReservePage && 
+          <span>
             <FallingLemonsOutlineRight />
-          </span>}
-
-          {!isReservePage && <span>
-            <img className="LowerRightLemon" src={LowerRightLemon} style={{ width: "100%" }} />
-          </span>}
+          </span>
+          }
 
         </span>
       </div>

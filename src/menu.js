@@ -68,7 +68,7 @@ export function Menu() {
                 {sections.map((section) => (
                     <section key={section.title} className="menuSection">
                         <div className="menuSec" style={{ position: "relative", display: "flex" }}>
-                            <t>{section.title}</t>
+                            <t style = {{ textTransform: "none"}}>{section.title}</t>
                             <t className="sectionCenter">{section.title}</t>
                         </div>
                         <div className="menuRow">
