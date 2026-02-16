@@ -66,13 +66,13 @@ export function Menu() {
             <div className="menuPage">
 
                 {sections.map((section) => (
-                    <section key={section.title} className="menuSection">
+                    <section key={section.title} className="menuSection" style = {{ overflow: "visible", background: "red"}}>
                         <div className="menuSec" style={{ position: "relative", display: "flex" }}>
                             <t style = {{ textTransform: "none"}}>{section.title}</t>
                             <t className="sectionCenter">{section.title}</t>
                         </div>
                         <div className="menuRow">
-                            <div className="menuRowTrack">
+                            <div className="menuRowTrack" style = {{ overflow: "visible" }}>
                                 {[...section.items, ...section.items].map((item, index) => (
                                     <article key={`${item.name}-${index}`} className="menuItem">
                                         <div className="menuItemThumb">

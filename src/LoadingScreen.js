@@ -3,6 +3,12 @@ import './App.css';
 import lemonLeft from "./img/lemonLeftHalf.svg";
 import lemonRight from "./img/lemonLeftRight.svg";
 
+const SPLASH001_D =
+  "M56.04113 0 H77.48831 C96.7368 0 112.5216 9.1 97.8277 13 C79.7422 17.79994 83.1331 26 56.04113 26 C33.42527 26 31.16491 20.8 7.41644 13 L7.41644 13 C-11.57226 6.76 9.67536 0 56.04113 0 Z";
+
+const SPLASH002_D =
+  "M28.1504 0.15973H55.1501C88.6501 0.15973 101.777 -1.38918 84.65 5.15967C67.65 11.6599 151.15 25.66 60.65 25.66C-55.8499 25.66 34.6494 10.1602 16.65 5.15991L16.6495 5.15979C9.90475 3.28609 -1.34926 0.15973 28.1504 0.15973Z";
+
 export function LoadingScreen({ loading, setLoading }) {
   useEffect(() => {
     const timer = setTimeout(() => setLoading(true), 2500);
@@ -29,9 +35,32 @@ export function LoadingScreen({ loading, setLoading }) {
       }}
     >
 
-      <div className = "lemonLoad" style={{ background: "red", display: "flex", justifyContent: "center", height: "min-content", alignItems: "center" }}>
-        <img style={{ marginLeft: "0px" }} src={lemonRight} />
-        <img style={{ marginLeft: "-140px" }} src={lemonLeft} />
+      <div className="loadingVisual">
+        <div
+          className="lemonLoad"
+          style={{ display: "flex", justifyContent: "center", height: "min-content", alignItems: "center" }}
+        >
+          <img style={{ marginLeft: "0px" }} src={lemonRight} alt="" />
+          <img style={{ marginLeft: "-140px" }} src={lemonLeft} alt="" />
+        </div>
+
+        <div className="splashMorph" aria-hidden="true">
+          <svg viewBox="0 0 104 26" className="splashMorphSvg">
+            <path d={SPLASH001_D} fill="#EAD26E">
+              <animate
+                attributeName="d"
+                begin="0s"
+                dur="1.9s"
+                repeatCount="1"
+                fill="freeze"
+                values={`${SPLASH001_D};${SPLASH002_D}`}
+                keyTimes="0;1"
+                calcMode="spline"
+                keySplines=".37 1.08 .64 1.13"
+              />
+            </path>
+          </svg>
+        </div>
       </div>
     </div>
   );
