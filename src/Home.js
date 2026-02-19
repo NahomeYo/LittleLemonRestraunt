@@ -1,4 +1,4 @@
-import { FallingLemonsColored, LittleLemonLogo } from "./fallingLemons";
+import { FallingLemonsColored, LittleLemonLogo} from "./fallingLemons";
 import Skyline from "./img/skyline.svg";
 import Thumbnail001 from "./img/restrauntFood.png";
 import { TestamonialSheet, SpecialsSheet } from "./stylesheet.js";
@@ -15,7 +15,7 @@ export function Home() {
         return (
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 9.583vw", borderRadius: "var(--borderRadius)", overflow: "hidden", background: "var(--secondary)", position: "relative", padding: "var(--padding) calc(var(--padding) * 2)" }}>
                 <span style={{ zIndex: 1, width: "50%" }}>
-                    <LittleLemonLogo color="var(--fourthly)" />
+                    <LittleLemonLogo color="var(--thirdly)" />
 
                     <p><a>W</a>e are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</p>
 
@@ -63,7 +63,7 @@ export function Home() {
         return (
             <div className="SpecialsBox" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", margin: "var(--margin)", overflow: "hidden", position: "relative", gap: "var(--padding)" }}>
                 <span className="boxTopRow">
-                    <h1 className="boxHeader" style={{ flexGrow: 0 }}>Specials</h1>
+                    <h1 className="sectionHeader" style={{ flexGrow: 0 }}>Specials</h1>
                     <div style={{ flexGrow: 2 }} className="thirdlyButton">Online Menu</div>
                 </span>
 

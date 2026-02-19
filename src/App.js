@@ -1,13 +1,12 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Nav } from "./nav";
 import { Home } from "./Home";
 import { Menu } from "./menu";
 import { Reserve } from "./Reserve";
 import { LoadingScreen } from "./LoadingScreen";
-import LowerRightLemon from "./img/lowerRightLemon.svg";
-import { FallingLemons, FallingLemonsOutlineLeft, FallingLemonsOutlineRight } from "./fallingLemons";
+import { FallingLemonsColored, FallingLemonsOutlineLeft, FallingLemonsOutlineRight } from "./fallingLemons";
 
 export function AppContent() {
   const [loading, setLoading] = useState(false);
@@ -16,7 +15,7 @@ export function AppContent() {
 
   return (
     <>
-      <LoadingScreen loading={loading} setLoading={setLoading} /> 
+      <LoadingScreen loading={loading} setLoading={setLoading} />
       <Nav />
       <Routes>
         <Route
@@ -45,15 +44,15 @@ export function AppContent() {
         <span className="lol" style={{ display: "grid", height: "100%", gridTemplateRows: "repeat(4, 25%)", gridTemplateColumns: "repeat(1, auto)", flexBasis: "50%" }}>
 
           <span style={{ overflow: "visible" }}>
-            <FallingLemons />
+            <FallingLemonsColored />
           </span>
 
           <span></span>
 
-          {!isReservePage && 
-          <span>
-            <FallingLemonsOutlineRight />
-          </span>
+          {!isReservePage &&
+            <span>
+              <FallingLemonsOutlineRight />
+            </span>
           }
 
         </span>

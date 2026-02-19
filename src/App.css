@@ -16,7 +16,7 @@
   --fourthly: #F6F2E7;
   --fifthly: #EAD26E;
   --sixthly: #D3B94F;
-  --motion: cubic-bezier(.21,-0.04,.85,1.36);
+  --motion: cubic-bezier(.21, -0.04, .85, 1.36);
 }
 
 .primaryButton {
@@ -113,6 +113,14 @@ h1 {
     0 -1px var(--fourthly),
     0 1px var(--fourthly);
   color: var(--secondary);
+  font-size: 4rem;
+}
+
+.sectionHeader {
+  font-family: LobsterRegular;
+  -webkit-text-stroke: 2px var(--secondary);
+  letter-spacing: 0.25rem;
+  color: transparent;
   font-size: 4rem;
 }
 
@@ -523,6 +531,7 @@ input:focus {
   z-index: 0;
   width: 100%;
   height: 100%;
+  mix-blend-mode: luminosity;
 }
 
 form input,
@@ -1171,4 +1180,19 @@ form .secondaryButton {
   100% {
     transform: translateX(100px) translateY(50px) rotate(90deg);
   }
+}
+
+.lemonBkg {
+  pointer-events: none;
+  mix-blend-mode:luminosity;
+  background: var(--fourthly);
+}
+
+.lemonBkg > svg {
+  position: relative;
+  z-index: 0;
+}
+
+.lemonScrollContainer {
+  overflow: visible;
 }
