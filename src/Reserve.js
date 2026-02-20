@@ -77,7 +77,7 @@ export function Reserve() {
                     />
                 </span>
 
-                <button type="submit" className="reservationSubmit">
+                <button type="submit" style = {{zIndex: 1, width: "100%"}} className="secondaryButton">
                     Make Your Reservation
                 </button>
 

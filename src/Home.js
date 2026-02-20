@@ -6,6 +6,10 @@ import Workers from "./img/Mario and Adrian b 2.png";
 import Chef from "./img/restaurant chef B 1.png";
 import Food from "./img/restaurant 3.png";
 import Interior from "./img/restaurant 4.png";
+import sherryHeadShot from "./img/sherryHeadShot.png";
+import johnHeadshot from "./img/johnHeadshot.png";
+import trishHeadShot from "./img/trishHeadShot.png";
+import josephHeadshot from "./img/josephHeadshot.png";
 import Footer from "./Footer.js";
 
 import "./App.css";
@@ -43,10 +47,10 @@ export function Home() {
                 </span>
 
                 <span style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", width: "100%", gap: "var(--padding)" }}>
-                    <TestamonialSheet imgSrc={Thumbnail001} cusName="Nahome Yohannes" testamonial="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-                    <TestamonialSheet imgSrc={Thumbnail001} cusName="000" testamonial="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-                    <TestamonialSheet imgSrc={Thumbnail001} cusName="000" testamonial="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
-                    <TestamonialSheet imgSrc={Thumbnail001} cusName="000" testamonial="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                    <TestamonialSheet imgSrc={sherryHeadShot} cusName="Sherry S." role="Costumer" rating="100%" testamonial="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+                    <TestamonialSheet imgSrc={johnHeadshot} cusName="John C." role="Costumer" rating="80%" testamonial="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
+                    <TestamonialSheet imgSrc={trishHeadShot} cusName="Trish A." role="Costumer" rating="100%" testamonial="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." />
+                    <TestamonialSheet imgSrc={josephHeadshot} cusName="Joseph J." role="Costumer" rating="100%" testamonial="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
                 </span>
 
                 <div style={{ borderRadius: "var(--borderRadius)", overflow: "hidden", background: "var(--secondary)", position: "absolute", zIndex: 0, width: "100%", height: "90%", left: 0, top: 0 }}>
@@ -68,9 +72,9 @@ export function Home() {
                 </span>
 
                 <span style={{ position: "relative", zIndex: 1, display: "flex", justifyContent: "space-between", width: "100%", gap: "var(--padding)" }}>
-                    <SpecialsSheet background="var(--secondary)" imgSrc={Thumbnail001} dish="000" description="000" />
-                    <SpecialsSheet background="var(--primary)" imgSrc={Thumbnail001} dish="000" description="000" />
-                    <SpecialsSheet background="var(--secondary)" imgSrc={Thumbnail001} dish="000" description="000" />
+                    <SpecialsSheet background="var(--secondary)" imgSrc={Thumbnail001} dish="000" price="{$ PRICE}" description="000" />
+                    <SpecialsSheet background="var(--primary)" imgSrc={Thumbnail001} dish="000" price="{$ PRICE}" description="000" />
+                    <SpecialsSheet background="var(--secondary)" imgSrc={Thumbnail001} dish="000" price="{$ PRICE}" description="000" />
                 </span>
             </div>
         )
@@ -78,7 +82,7 @@ export function Home() {
 
     const InfoBox = () => {
         return (
-            <div className="infoBox" style={{ display: "flex", margin: "var(--margin)", overflow: "visible", position: "relative", gap: "var(--profile)" }}>
+            <div id="info-box" className="infoBox" style={{ display: "flex", margin: "var(--margin)", overflow: "visible", position: "relative", gap: "var(--profile)" }}>
                 <span style={{ gap: "calc(var(--padding) / 2)", display: "flex", flexDirection: "column", position: "relative", flexBasis: "50%", flexGrow: 0 }}>
                     <div style={{ width: "430px", height: "200px" }}>
                         <LittleLemonLogo color="var(--primary)" />

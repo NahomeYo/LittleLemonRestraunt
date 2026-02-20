@@ -19,7 +19,7 @@ export function Footer() {
                     </span>
 
                     <span style={{ flexGrow: 0, position: "relative", flexBasis: "20%" }}>
-                        <a style={{ lineHeight: "75%", WebkitTextStroke: "1px var(--thirdly)", width: "min-content", height: "min-content" }}>SITEMAP</a>
+                        <a>Sitemap</a>
                         <p>Home</p>
                         <p>About</p>
                         <p>Menu</p>
@@ -28,7 +28,7 @@ export function Footer() {
                     </span>
 
                     <span style={{ display: "flex", flexDirection: "column", flexGrow: 2, flexBasis: "60%" }}>
-                        <p style={{ flexGrow: 0 }}>Subscribe to our Email Newsletter</p>
+                        <p style={{ flexGrow: 0, display: "flex", alignItems: "flex-start", justifyContent: "flex-start", textAlign: "start" }}>Subscribe to our Email Newsletter</p>
                         <input type="text" style={{
                             height: "100%", flexBasis: "100%", flexGrow: 2, borderRadius: "20px", textAlign: "start",
                             padding: "10px",

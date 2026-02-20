@@ -1,5 +1,7 @@
 import './App.css';
 import sideLemonOutline from "./img/sideLemonOutline.png";
+import starsMask from "./img/stars.png";
+import starWidthBar from "./img/starWidthBar.png";
 
 export const TestamonialSheet = (props) => {
     return (
@@ -7,6 +9,8 @@ export const TestamonialSheet = (props) => {
             className="TestamonialSheet"
             style={{
                 position: "relative",
+                zIndex: 0,
+                isolation: "isolate",
                 background: "var(--fourthly)",
                 overflow: "hidden",
                 padding: "0.5rem var(--padding)",
@@ -21,31 +25,52 @@ export const TestamonialSheet = (props) => {
                 style={{
                     borderRadius: "100%",
                     width: "var(--profile)",
-                    height: "var(--profile)"
+                    height: "var(--profile)",
+                    objectFit: "cover",
+                    objectPosition: "50% 50%",
+                    position: "relative",
+                    zIndex: 2,
                 }}
                 src={props.imgSrc || sideLemonOutline}
                 alt=""
             />
 
-            <span>
+            <div
+                className="testimonialStarsMask"
+                style={{
+                    background: "none",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    position: "relative",
+                    width: "100%",
+                    margin: 0,
+                    padding: 0,
+                    zIndex: 2,
+                }}
+            >
+                <img src={starWidthBar} />
+            </div>
+
+            <span style={{ position: "relative", zIndex: 2 }}>
                 <p
                     style={{
                         fontFamily: "LobsterTwo",
                         color: "var(--primary)",
                         whiteSpace: "nowrap",
                         textAlign: "center",
-                        fontSize: "1.5rem"
+                        fontSize: "1.5rem",
                     }}
                 >
                     {props.cusName}
                 </p>
-                <p style={{ color: "var(--primary)", textAlign: "center" }}>Customer</p>
+                <p style={{ color: "var(--primary)", textAlign: "center" }}>{props.role || "Costumer"}</p>
             </span>
 
             <span
                 style={{
                     position: "relative",
-                    zIndex: 1,
+                    zIndex: 2,
                     width: "100%",
                     height: "100%"
                 }}
@@ -81,7 +106,7 @@ export const TestamonialSheet = (props) => {
                     left: 0,
                     bottom: "25%",
                     width: "100%",
-                    zIndex: 0,
+                    zIndex: -1,
                     opacity: 0.5
                 }}
                 alt=""
@@ -95,8 +120,11 @@ export const SpecialsSheet = (props) => {
         <div className="SpecialsSheet" style={{ flexGrow: 2, position: "relative", background: `${props.background}`, overflow: "hidden", borderRadius: "var(--borderRadius)" }}>
             <img style={{ height: "6rem", width: "100%", objectFit: "cover", objectPosition: "50% 50%" }} src={props.imgSrc} />
 
-            <span style={{ display: "flex", justifyContent: "space-between", flexDirection: "column", position: "relative",padding: "0.5rem var(--padding)" }}>
-                <h2 style={{ color: "var(--fourthly)" }}>{props.dish}</h2>
+            <span style={{ display: "flex", justifyContent: "space-between", flexDirection: "column", position: "relative", padding: "0.5rem var(--padding)" }}>
+                <span style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "calc(var(--padding) / 2)" }}>
+                    <h2 style={{ color: "var(--fourthly)" }}>{props.dish}</h2>
+                    <h2 style={{ color: "var(--fifthly)", whiteSpace: "nowrap" }}>{props.price || "{$ PRICE}"}</h2>
+                </span>
                 <p style={{ color: "var(--thirdly)" }}>{props.description}</p>
             </span>
         </div>
@@ -107,7 +135,7 @@ export default function init() {
     return (
         <>
             <TestamonialSheet imgSrc="" cusName="" testamonial="" />
-            <SpecialsSheet background="" imgSrc="" dish="" description="" />
+            <SpecialsSheet background="" imgSrc="" dish="" price="" description="" />
         </>
     )
 }

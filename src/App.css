@@ -3,11 +3,12 @@
 }
 
 :root {
+  --sectionSpacing: 1rem;
   --padding: 1rem;
   --margin: 5rem 9.583vw;
   --icon: 30px;
-  --b: 20px;
-  --profile: 4rem;
+  --b: 0.25rem;
+  --profile: 5rem;
   --borderRadius: 30px;
   --boxShadowEffect: 0px 5px 1px 2px var(--primary);
   --primary: #495E57;
@@ -16,15 +17,7 @@
   --fourthly: #F6F2E7;
   --fifthly: #EAD26E;
   --sixthly: #D3B94F;
-  --motion: cubic-bezier(.21, -0.04, .85, 1.36);
-}
-
-.primaryButton {
-  background: var(--fourthly);
-  border-radius: 10px;
-  color: var(--primary);
-  border: none;
-  padding: calc(var(--padding) / 3) 0;
+  --motion: cubic-bezier(.34, 1.56, .64, 1);
 }
 
 .primaryButton,
@@ -35,14 +28,22 @@
   align-items: center;
   justify-content: center;
   font-family: LobsterTwo;
+  transition: all 0.5s var(--motion);
+}
+
+.primaryButton {
+  background: var(--fourthly);
+  border-radius: 10px;
+  color: var(--primary);
+  border: none;
+  padding: calc(var(--padding) / 3) 0;
 }
 
 .secondaryButton {
   background: none;
   border-radius: 20px;
   color: var(--fourthly);
-  border: 5px solid var(--fourthly);
-  border-bottom: 10px solid var(--fourthly);
+  border: var(--b) solid var(--fourthly);
   padding: calc(var(--padding) / 3) 0;
 }
 
@@ -50,10 +51,27 @@
   background: none;
   border-radius: 20px;
   color: var(--primary);
-  border: 5px solid var(--primary);
-  border-bottom: 15px solid var(--primary);
+  border: var(--b) solid var(--primary);
   height: min-content;
   padding: calc(var(--padding) / 2) 0;
+}
+
+.primaryButton:hover {
+  border-bottom: calc(var(--b) *2) var(--primary) solid;
+}
+
+.secondaryButton:hover {
+  background: var(--thirdly);
+  border-radius: 20px;
+  color: var(--primary);
+  border: var(--b) solid var(--primary);
+  padding: calc(var(--padding) / 2) 0;
+  border-bottom: calc(var(--b) *2) var(--primary) solid;
+}
+
+.thirdlyButton:hover {
+  background: var(--fourthly);
+  border-bottom: calc(var(--b) *2) var(--primary) solid;
 }
 
 @font-face {
@@ -161,14 +179,13 @@ p {
 
 a {
   float: end;
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-family: LobsterRegular;
-  -webkit-text-stroke: 1px var(--fourthly);
-  color: transparent;
+  color: var(--thirdly);
 }
 
 .navContainer {
-  animation: paddingExpand 1s var(--motion) forwards;
+  animation: paddingExpand 0.75s var(--motion) forwards;
   padding: 1.5rem 0 6rem 6rem;
   overflow: hidden;
 }
@@ -199,18 +216,18 @@ a {
 
 .leaveBtn {
   margin: 0;
-  transition: 0.2s all ease-in-out;
+  transition: 0.75s all var(--motion);
   transform-origin: center center;
   position: absolute;
   top: 0;
   left: 0;
   offset-path: path("M188.61 131.487C158.11 135.987 54.8104 117.96 11.1098 68.4874C-5.23188 49.9874 -1.8902 4.48743 15.6098 0.487427");
   offset-rotate: 0deg;
-  animation: leaveTransition 2s ease-in-out forwards;
+  animation: leaveTransition 0.75s var(--motion) forwards;
 }
 
 .leaveBtn span {
-  animation: leaveTransition 2s ease-in-out forwards;
+  animation: leaveTransition 0.75s var(--motion) forwards;
 }
 
 @keyframes leaveTransition {
@@ -282,7 +299,7 @@ a {
 }
 
 .leaveBtn:nth-of-type(1) {
-  animation: aboutLeafTransition 2s ease-in-out forwards;
+  animation: aboutLeafTransition 0.75s var(--motion) forwards;
   transform: scale(0.7) translate(40px, -30px);
   offset-distance: 100%;
 }
@@ -308,55 +325,55 @@ a {
 }
 
 .leaveBtn:nth-of-type(1) .leafImg {
-  animation: aboutLeafTransition 2s ease-in-out forwards;
+  animation: aboutLeafTransition 0.75s var(--motion) forwards;
   transform: rotate(190deg);
 }
 
 .leaveBtn:nth-of-type(2) .leafImg {
-  animation: leaveTransition 2s ease-in-out forwards;
+  animation: leaveTransition 0.75s var(--motion) forwards;
   transform: rotate(45deg);
 }
 
 .leaveBtn:nth-of-type(3) .leafImg {
-  animation: leaveTransition 2s ease-in-out forwards;
+  animation: leaveTransition 0.75s var(--motion) forwards;
   transform: rotate(0deg);
 }
 
 .leaveBtn:nth-of-type(4) .leafImg {
-  animation: leaveTransition 2s ease-in-out forwards;
+  animation: leaveTransition 0.75s var(--motion) forwards;
   transform: rotate(-45deg);
 }
 
 .leaveBtn:nth-of-type(5) .leafImg {
-  animation: leaveTransition 2s ease-in-out forwards;
+  animation: leaveTransition 0.75s var(--motion) forwards;
   transform: rotate(-90deg);
 }
 
 .navContainer.reverse .leaveBtn {
-  animation: leaveTransitionReverse 2s ease-in-out forwards;
+  animation: leaveTransitionReverse 0.75s var(--motion) forwards;
 }
 
 .navContainer.reverse .leaveBtn span {
-  animation: leaveTransitionReverse 2s ease-in-out forwards;
+  animation: leaveTransitionReverse 0.75s var(--motion) forwards;
 }
 
 .navContainer.reverse .leaveBtn:nth-of-type(1) {
-  animation: aboutLeafTransitionReverse 2s ease-in-out forwards;
+  animation: aboutLeafTransitionReverse 0.75s var(--motion) forwards;
 }
 
 .navContainer.reverse .leaveBtn:nth-of-type(1) .leafImg {
-  animation: aboutLeafTransitionReverse 2s ease-in-out forwards;
+  animation: aboutLeafTransitionReverse 0.75s var(--motion) forwards;
 }
 
 .navContainer.reverse .leaveBtn:nth-of-type(2) .leafImg,
 .navContainer.reverse .leaveBtn:nth-of-type(3) .leafImg,
 .navContainer.reverse .leaveBtn:nth-of-type(4) .leafImg,
 .navContainer.reverse .leaveBtn:nth-of-type(5) .leafImg {
-  animation: leaveTransitionReverse 2s ease-in-out forwards;
+  animation: leaveTransitionReverse 0.75s var(--motion) forwards;
 }
 
 .navContainer.reverse {
-  animation: paddingShrink 1s var(--motion) forwards;
+  animation: paddingShrink 0.75s var(--motion) forwards;
 }
 
 .leaveBtn:hover {
@@ -366,7 +383,7 @@ a {
 .littleLemonLogo {
   transform-origin: center center;
   transform: rotate(0deg);
-  animation: lemonSpin 1s var(--motion) forwards;
+  animation: lemonSpin 0.75s var(--motion) forwards;
   margin: 0;
   padding: 0;
 }
@@ -422,7 +439,6 @@ a {
   z-index: 1;
   display: flex;
   width: 100%;
-  gap: var(--padding);
   align-items: center;
 }
 
@@ -1075,7 +1091,7 @@ form .secondaryButton {
 }
 
 .littleLemonLogo.reverse {
-  animation: lemonSpinReverse 1s var(--motion) forwards;
+  animation: lemonSpinReverse 0.75s var(--motion) forwards;
 }
 
 .splashMorph {
@@ -1184,15 +1200,55 @@ form .secondaryButton {
 
 .lemonBkg {
   pointer-events: none;
-  mix-blend-mode:luminosity;
+  mix-blend-mode: luminosity;
   background: var(--fourthly);
 }
 
-.lemonBkg > svg {
+.lemonBkg>svg {
   position: relative;
   z-index: 0;
 }
 
 .lemonScrollContainer {
   overflow: visible;
+}
+
+.testimonialStarsMask {
+  mask-image: url("./img/stars.png");
+  mask-size: 75%;
+  mask-position: center center;
+  mask-repeat: no-repeat;
+}
+
+.testimonialStarsMask::before {
+  position: absolute;
+  z-index: 0;
+  content: "";
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--primary);
+}
+
+.testimonialStarsMask>img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateX(0px);
+}
+
+.TestamonialBox>span:nth-of-type(2)>.TestamonialSheet:nth-of-type(1) .testimonialStarsMask>img {
+  transform: translateX(-50px);
+}
+
+.TestamonialBox>span:nth-of-type(2)>.TestamonialSheet:nth-of-type(2) .testimonialStarsMask>img {
+  transform: translateX(0px);
+}
+
+.TestamonialBox>span:nth-of-type(2)>.TestamonialSheet:nth-of-type(3) .testimonialStarsMask>img {
+  transform: translateX(-50px);
+}
+
+.TestamonialBox>span:nth-of-type(2)>.TestamonialSheet:nth-of-type(4) .testimonialStarsMask>img {
+  transform: translateX(-50px);
 }

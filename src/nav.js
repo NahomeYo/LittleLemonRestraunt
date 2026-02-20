@@ -38,17 +38,29 @@ export const Nav = () => {
     }, [leafArray]);
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             const routes = [
                 "/",
-                "/About",
+                "/",
                 "/Menu",
                 "/OrderOnline",
                 "/Reserve",
             ];
 
-            navigate(routes[pageNum] || "/");
+            if (pageNum === 1) {
+                navigate("/");
 
+                const scrollToInfo = () => {
+                    const infoBox = document.getElementById("info-box");
+                    if (infoBox) {
+                        infoBox.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                };
+
+                setTimeout(scrollToInfo, 120);
+            } else {
+                navigate(routes[pageNum] || "/");
+            }
         }, 2000);
 
         switch (pageNum) {
@@ -70,6 +82,8 @@ export const Nav = () => {
             default:
                 break;
         }
+
+        return () => clearTimeout(timeoutId);
     }, [pageNum]);
 
     useEffect(() => {
