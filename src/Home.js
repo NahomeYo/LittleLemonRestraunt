@@ -41,7 +41,7 @@ export function Home() {
     const TestamonialBox = () => {
         return (
             <div className="TestamonialBox" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", margin: "var(--margin)", borderRadius: "var(--borderRadius)", overflow: "hidden", position: "relative", padding: "var(--padding) calc(var(--padding) * 2)", gap: "var(--padding)" }}>
-                <span className="boxTopRow">
+                <span className="boxTopRow" style = {{ gap: "var(--sectionSpacing)"}}>
                     <div style={{ flexGrow: 2 }} className="secondaryButton">View All</div>
                     <h1 className="boxHeader" style={{ flexGrow: 0 }}>Testamonials</h1>
                 </span>
@@ -66,8 +66,8 @@ export function Home() {
     const SpecialsBox = () => {
         return (
             <div className="SpecialsBox" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center", margin: "var(--margin)", overflow: "hidden", position: "relative", gap: "var(--padding)" }}>
-                <span className="boxTopRow">
-                    <h1 className="sectionHeader" style={{ flexGrow: 0 }}>Specials</h1>
+                <span className="boxTopRow" style = {{ gap: "var(--sectionSpacing)"}}>
+                    <h1 className="sectionHeader" style={{ flexGrow: 0}}>Specials</h1>
                     <div style={{ flexGrow: 2 }} className="thirdlyButton">Online Menu</div>
                 </span>
 
@@ -82,7 +82,7 @@ export function Home() {
 
     const InfoBox = () => {
         return (
-            <div id="info-box" className="infoBox" style={{ display: "flex", margin: "var(--margin)", overflow: "visible", position: "relative", gap: "var(--profile)" }}>
+            <div id="info-box" className="infoBox" style={{ display: "flex", margin: "var(--margin)", overflow: "visible", position: "relative", gap: "var(--sectionSpacing)" }}>
                 <span style={{ gap: "calc(var(--padding) / 2)", display: "flex", flexDirection: "column", position: "relative", flexBasis: "50%", flexGrow: 0 }}>
                     <div style={{ width: "430px", height: "200px" }}>
                         <LittleLemonLogo color="var(--primary)" />

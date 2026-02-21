@@ -29,7 +29,6 @@
   justify-content: center;
   font-family: LobsterTwo;
   transition: all 0.5s var(--motion);
-    margin: 0 var(--sectionSpacing);
 }
 
 .primaryButton {
@@ -1264,5 +1263,9 @@ form .secondaryButton {
 .emailInput {
   color: var(--fourthly);
   font-family:Neucha;
-  padding-left: var(--sectionSpacing);
+  padding: var(--sectionSpacing);
+}
+
+.emailInput::placeholder {
+  text-transform: uppercase;
 }
