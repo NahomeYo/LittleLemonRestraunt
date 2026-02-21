@@ -29,6 +29,7 @@
   justify-content: center;
   font-family: LobsterTwo;
   transition: all 0.5s var(--motion);
+    margin: 0 var(--sectionSpacing);
 }
 
 .primaryButton {
@@ -931,7 +932,8 @@ form .secondaryButton {
   }
 }
 
-.reservationBox input {
+.reservationBox input,
+.reservationBox select {
   border: none;
   border-radius: 0;
   background: transparent;
@@ -983,7 +985,8 @@ form .secondaryButton {
   font-weight: 900;
 }
 
-.reservationBox .lineWrap input {
+.reservationBox .lineWrap input,
+.reservationBox .lineWrap select {
   position: absolute;
   left: 5%;
   right: 5%;
@@ -1075,6 +1078,11 @@ form .secondaryButton {
   }
 
   .reservationBox input {
+    font-size: 1rem;
+    height: 2.1rem;
+  }
+
+  .reservationBox select {
     font-size: 1rem;
     height: 2.1rem;
   }
@@ -1251,4 +1259,10 @@ form .secondaryButton {
 
 .TestamonialBox>span:nth-of-type(2)>.TestamonialSheet:nth-of-type(4) .testimonialStarsMask>img {
   transform: translateX(-50px);
+}
+
+.emailInput {
+  color: var(--fourthly);
+  font-family:Neucha;
+  padding-left: var(--sectionSpacing);
 }

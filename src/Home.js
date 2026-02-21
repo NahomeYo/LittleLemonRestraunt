@@ -17,13 +17,13 @@ import "./App.css";
 export function Home() {
     const Box = () => {
         return (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 9.583vw", borderRadius: "var(--borderRadius)", overflow: "hidden", background: "var(--secondary)", position: "relative", padding: "var(--padding) calc(var(--padding) * 2)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 9.583vw", borderRadius: "var(--borderRadius)", overflow: "hidden", background: "var(--secondary)", position: "relative", padding: "var(--padding)", gap: "var(--sectionSpacing)" }}>
                 <span style={{ zIndex: 1, width: "50%" }}>
                     <LittleLemonLogo color="var(--thirdly)" />
 
                     <p><a>W</a>e are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.</p>
 
-                    <div className="primaryButton">Reserve a Table</div>
+                    <div className="secondaryButton">Reserve a Table</div>
                 </span>
 
                 <span style={{ display: "flex", justifyContent: "center", zIndex: 1 }}>

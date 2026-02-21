@@ -1,7 +1,6 @@
 import aboutIcon from "./img/about.svg";
 import homeIcon from "./img/home.svg";
 import menuIcon from "./img/menu.svg";
-import orderIcon from "./img/order.svg";
 import reserveIcon from "./img/reserve.svg";
 import leafIcon from "./img/leaf.png";
 import logo from "./img/littleLemonIcon.svg"
@@ -43,7 +42,6 @@ export const Nav = () => {
                 "/",
                 "/",
                 "/Menu",
-                "/OrderOnline",
                 "/Reserve",
             ];
 
@@ -51,7 +49,7 @@ export const Nav = () => {
                 navigate("/");
 
                 const scrollToInfo = () => {
-                    const infoBox = document.getElementById("info-box");
+                    const infoBox = document.querySelector(".infoBox");
                     if (infoBox) {
                         infoBox.scrollIntoView({ behavior: "smooth", block: "start" });
                     }
@@ -68,15 +66,12 @@ export const Nav = () => {
                 setPageTitle("home");
                 break;
             case (1):
-                setPageTitle("about");
+                setPageTitle("home");
                 break;
             case (2):
                 setPageTitle("menu");
                 break;
             case (3):
-                setPageTitle("order");
-                break;
-            case (4):
                 setPageTitle("reserve");
                 break;
             default:
@@ -144,7 +139,6 @@ export const Nav = () => {
                         {leaveBtn("Home", homeIcon)}
                         {leaveBtn("About", aboutIcon)}
                         {leaveBtn("Menu", menuIcon)}
-                        {leaveBtn("Order", orderIcon)}
                         {leaveBtn("Reserve", reserveIcon)}
                     </span>
                 </ul>

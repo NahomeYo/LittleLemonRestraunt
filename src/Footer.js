@@ -29,11 +29,18 @@ export function Footer() {
 
                     <span style={{ display: "flex", flexDirection: "column", flexGrow: 2, flexBasis: "60%" }}>
                         <p style={{ flexGrow: 0, display: "flex", alignItems: "flex-start", justifyContent: "flex-start", textAlign: "start" }}>Subscribe to our Email Newsletter</p>
-                        <input type="text" style={{
-                            height: "100%", flexBasis: "100%", flexGrow: 2, borderRadius: "20px", textAlign: "start",
-                            padding: "10px",
+                        <input type="text" 
+                        className = "emailInput"
+                        placeholder="email"
+                        style={{
+                            flexGrow: 2, 
+                            padding: 0,
+                            borderRadius: "20px", 
+                            textAlign: "start",
                             boxSizing: "border-box",
-                            resize: "none"
+                            resize: "none",
+                            background: "none",
+                            border: "5px solid var(--fourthly)"
                         }} />
                         <div className="secondaryButton" style={{ flexGrow: 0 }}>
                             Subscribe
