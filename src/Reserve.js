@@ -3,8 +3,34 @@ import Footer from "./Footer.js";
 import "./App.css";
 import { FallingLemonsColored } from "./fallingLemons";
 import Skyline from "./img/skyline.svg";
+import {
+    clearStoredAuth,
+    fetchAvailabilityByDate,
+    loginUserRequest,
+    readStoredAuth,
+    registerUserRequest,
+    storeAuth,
+    submitReservationWithRefresh,
+} from "./apiClient";
 
-const FALLBACK_TIMES = ["17:00", "18:00", "19:00", "20:00", "21:00"];
+const FALLBACK_TIMES = [
+    "08:00",
+    "09:00",
+    "10:00",
+    "11:00",
+    "12:00",
+    "13:00",
+    "14:00",
+    "15:00",
+    "16:00",
+    "17:00",
+    "18:00",
+    "19:00",
+    "20:00",
+    "21:00",
+    "22:00",
+    "23:00",
+];
 
 function toDate(dateInput) {
     if (dateInput instanceof Date) {
@@ -26,21 +52,32 @@ function toDateInputValue(date) {
     return `${year}-${month}-${day}`;
 }
 
-function getTimesForDate(dateInput) {
+async function getTimesForDate(dateInput) {
     const date = toDate(dateInput);
+    const dateValue = toDateInputValue(date);
 
-    if (typeof window.fetchAPI === "function") {
-        return window.fetchAPI(date) ?? [];
+    try {
+        const response = await fetchAvailabilityByDate(dateValue);
+        if (!response.ok) {
+            throw new Error("Availability request failed");
+        }
+
+        const data = await response.json();
+        return Array.isArray(data.times) ? data.times : [];
+    } catch (_error) {
+        if (typeof window.fetchAPI === "function") {
+            return window.fetchAPI(date) ?? [];
+        }
+
+        return FALLBACK_TIMES;
     }
-
-    return FALLBACK_TIMES;
 }
 
 export function initializeTimes() {
-    return getTimesForDate(new Date());
+    return FALLBACK_TIMES;
 }
 
-export function updateTimes(selectedDate) {
+export async function updateTimes(selectedDate) {
     return getTimesForDate(selectedDate);
 }
 
@@ -53,14 +90,38 @@ export function Reserve() {
         guests: 1,
         occasion: "",
     });
+    const [authData, setAuthData] = useState({ username: "", password: "" });
+    const [accessToken, setAccessToken] = useState("");
+    const [authUser, setAuthUser] = useState("");
+    const [authFeedback, setAuthFeedback] = useState("");
+    const [authBusy, setAuthBusy] = useState(false);
 
     useEffect(() => {
-        const times = updateTimes(formData.date);
-        setAvailableTimes(times);
-        setFormData((previous) => ({
-            ...previous,
-            time: times.includes(previous.time) ? previous.time : (times[0] ?? ""),
-        }));
+        const storedAuth = readStoredAuth();
+        if (storedAuth.accessToken) {
+            setAccessToken(storedAuth.accessToken);
+            setAuthUser(storedAuth.username);
+        }
+    }, []);
+
+    useEffect(() => {
+        let isMounted = true;
+
+        updateTimes(formData.date).then((times) => {
+            if (!isMounted) {
+                return;
+            }
+
+            setAvailableTimes(times);
+            setFormData((previous) => ({
+                ...previous,
+                time: times.includes(previous.time) ? previous.time : (times[0] ?? ""),
+            }));
+        });
+
+        return () => {
+            isMounted = false;
+        };
     }, [formData.date]);
 
     function handleChange(event) {
@@ -71,12 +132,111 @@ export function Reserve() {
         }));
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function handleAuthInputChange(event) {
+        const { name, value } = event.target;
+        setAuthData((previous) => ({
+            ...previous,
+            [name]: value,
+        }));
+    }
 
-        const success = typeof window.submitAPI === "function"
-            ? window.submitAPI(formData)
-            : true;
+    async function registerUser() {
+        if (!authData.username || !authData.password) {
+            setAuthFeedback("Add a username and password to register.");
+            return;
+        }
+
+        setAuthBusy(true);
+        setAuthFeedback("");
+
+        try {
+            const { response, body } = await registerUserRequest({
+                username: authData.username,
+                password: authData.password,
+            });
+
+            if (!response.ok) {
+                const message = body.username?.[0] || body.password?.[0] || body.detail || "Registration failed.";
+                setAuthFeedback(message);
+                return;
+            }
+
+            setAuthFeedback("Account created. Now log in. Ask admin to assign Manager/Admin role for booking writes.");
+        } catch (_error) {
+            setAuthFeedback("Could not register. Check if backend is running.");
+        } finally {
+            setAuthBusy(false);
+        }
+    }
+
+    async function loginUser() {
+        if (!authData.username || !authData.password) {
+            setAuthFeedback("Add username and password to log in.");
+            return;
+        }
+
+        setAuthBusy(true);
+        setAuthFeedback("");
+
+        try {
+            const { response, body } = await loginUserRequest({
+                username: authData.username,
+                password: authData.password,
+            });
+
+            if (!response.ok) {
+                setAuthFeedback(body.detail || "Invalid credentials.");
+                return;
+            }
+
+            storeAuth({
+                access: body.access,
+                refresh: body.refresh,
+                username: authData.username,
+            });
+            setAccessToken(body.access);
+            setAuthUser(authData.username);
+            setAuthFeedback("Logged in successfully.");
+        } catch (_error) {
+            setAuthFeedback("Could not log in. Check if backend is running.");
+        } finally {
+            setAuthBusy(false);
+        }
+    }
+
+    function logoutUser() {
+        clearStoredAuth();
+        setAccessToken("");
+        setAuthUser("");
+        setAuthFeedback("Logged out.");
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        let success = false;
+
+        try {
+            const response = await submitReservationWithRefresh(
+                formData,
+                accessToken,
+                setAccessToken,
+            );
+
+            if (response.status === 401 || response.status === 403) {
+                if (response.status === 401) {
+                    logoutUser();
+                    setAuthFeedback("Session expired. Please log in again.");
+                }
+                window.alert("Booking write access requires a logged-in user with Manager/Admin role.");
+                return;
+            }
+
+            success = response.ok;
+        } catch (_error) {
+            if (typeof window.submitAPI === "function") {
+                success = window.submitAPI(formData);
+            }
+        }
 
         if (success) {
             window.alert(`Reservation confirmed for ${formData.date} at ${formData.time} for ${formData.guests} guest(s).`);
@@ -89,6 +249,42 @@ export function Reserve() {
     return (
         <div style={{ height: "100%" }}>
             <form className="reservationBox" onSubmit={handleSubmit}>
+                <div className="reservationAuthPanel">
+                    <p style={{ color: "var(--fourthly)" }} className="footerHeading">Account Access</p>
+                    {authUser ? (
+                        <div className="reservationAuthRow">
+                            <p>Signed in as <strong>{authUser}</strong></p>
+                            <button type="button" className="thirdlyButton" onClick={logoutUser}>Logout</button>
+                        </div>
+                    ) : (
+                        <>
+                            <div className="reservationAuthFields">
+                                <input
+                                    type="text"
+                                    name="username"
+                                    placeholder="Username"
+                                    aria-label="Username"
+                                    value={authData.username}
+                                    onChange={handleAuthInputChange}
+                                />
+                                <input
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    aria-label="Password"
+                                    value={authData.password}
+                                    onChange={handleAuthInputChange}
+                                />
+                            </div>
+                            <div className="reservationAuthActions">
+                                <button type="button" className="thirdlyButton" onClick={loginUser} disabled={authBusy}>Login</button>
+                                <button type="button" className="secondaryButton" onClick={registerUser} disabled={authBusy}>Register</button>
+                            </div>
+                        </>
+                    )}
+                    {authFeedback && <p className="reservationAuthFeedback">{authFeedback}</p>}
+                </div>
+
                 <span className="lineWrap">
                     <div className="line" aria-hidden="true"></div>
                     <h3>Choose Date</h3>

@@ -1,6 +1,5 @@
 import './App.css';
 import sideLemonOutline from "./img/sideLemonOutline.png";
-import starsMask from "./img/stars.png";
 import starWidthBar from "./img/starWidthBar.png";
 
 export const TestamonialSheet = (props) => {
@@ -49,7 +48,7 @@ export const TestamonialSheet = (props) => {
                     zIndex: 2,
                 }}
             >
-                <img src={starWidthBar} />
+                <img src={starWidthBar} alt="" />
             </div>
 
             <span style={{ position: "relative", zIndex: 2 }}>
@@ -118,7 +117,7 @@ export const TestamonialSheet = (props) => {
 export const SpecialsSheet = (props) => {
     return (
         <div className="SpecialsSheet" style={{ flexGrow: 2, position: "relative", background: `${props.background}`, overflow: "hidden", borderRadius: "var(--borderRadius)" }}>
-            <img style={{ height: "6rem", width: "100%", objectFit: "cover", objectPosition: "50% 50%" }} src={props.imgSrc} />
+            <img style={{ height: "6rem", width: "100%", objectFit: "cover", objectPosition: "50% 50%" }} src={props.imgSrc} alt={props.dish || "Special menu item"} />
 
             <span style={{ display: "flex", justifyContent: "space-between", flexDirection: "column", position: "relative", padding: "0.5rem var(--padding)" }}>
                 <span style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "calc(var(--padding) / 2)" }}>

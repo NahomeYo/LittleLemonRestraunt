@@ -5,17 +5,19 @@ import reserveIcon from "./img/reserve.svg";
 import leafIcon from "./img/leaf.png";
 import logo from "./img/littleLemonIcon.svg"
 import './App.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from "react";
 
-export const Nav = () => {
+export const Nav = ({ setPageLoading = () => { } }) => {
     const [pageNum, setPageNum] = useState(0);
     const [pageTitle, setPageTitle] = useState("home");
     const [leafArray, setLeafArray] = useState([]);
     const [isReverse, setIsReverse] = useState(false);
     const logoRef = useRef(null);
+    const hasNavInteraction = useRef(false);
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const buttons = Array.from(document.querySelectorAll(".leaveBtn"));
@@ -24,7 +26,15 @@ export const Nav = () => {
 
     useEffect(() => {
         const handlers = leafArray.map((btn, index) => {
-            const handler = () => setPageNum(index);
+            const handler = () => {
+                hasNavInteraction.current = true;
+                const isHomeOrAbout = index === 0 || index === 1;
+                const isAlreadyOnHomeRoute = location.pathname === "/";
+                const isSamePageSectionNav = isAlreadyOnHomeRoute && isHomeOrAbout;
+
+                setPageLoading(!isSamePageSectionNav);
+                setPageNum(index);
+            };
             btn.addEventListener("click", handler);
             return { btn, handler };
         });
@@ -34,19 +44,24 @@ export const Nav = () => {
                 btn.removeEventListener("click", handler);
             });
         };
-    }, [leafArray]);
+    }, [leafArray, location.pathname, setPageLoading]);
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            const routes = [
-                "/",
-                "/",
-                "/Menu",
-                "/Reserve",
-            ];
+        if (!hasNavInteraction.current) {
+            return;
+        }
 
+        const routes = [
+            "/",
+            "/",
+            "/Menu",
+            "/Reserve",
+        ];
+
+        const runNavigation = () => {
             if (pageNum === 1) {
                 navigate("/");
+                setPageLoading(false);
 
                 const scrollToInfo = () => {
                     const infoBox = document.querySelector(".infoBox");
@@ -55,11 +70,26 @@ export const Nav = () => {
                     }
                 };
 
-                setTimeout(scrollToInfo, 120);
-            } else {
-                navigate(routes[pageNum] || "/");
+                if (location.pathname === "/") {
+                    scrollToInfo();
+                } else {
+                    setTimeout(scrollToInfo, 120);
+                }
+                return;
             }
-        }, 2000);
+
+            if (pageNum === 0 && location.pathname === "/") {
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                setPageLoading(false);
+                return;
+            }
+
+            navigate(routes[pageNum] || "/");
+            setPageLoading(false);
+        };
+
+        const isSamePageHomeAbout = location.pathname === "/" && (pageNum === 0 || pageNum === 1);
+        const timeoutId = setTimeout(runNavigation, isSamePageHomeAbout ? 0 : 2000);
 
         switch (pageNum) {
             case (0):
@@ -79,19 +109,20 @@ export const Nav = () => {
         }
 
         return () => clearTimeout(timeoutId);
-    }, [pageNum]);
+    }, [location.pathname, pageNum, navigate, setPageLoading]);
 
     useEffect(() => {
-        const logo = logoRef.current;
+        const handleScroll = () => {
+            setIsReverse(window.scrollY >= 100);
+        };
 
-        const menuItemBody = document.querySelector(".menuItemBody");
+        handleScroll();
+        window.addEventListener("scroll", handleScroll);
 
-        if (logo && menuItemBody) {
-            logo.classList.toggle("reverse", isReverse);
-            logo.style.animation = "none";
-            logo.style.animation = "";
-        }
-    }, [isReverse]);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     function leafHover(event) {
         let btn = event.currentTarget;
@@ -129,9 +160,10 @@ export const Nav = () => {
             <div className={`navContainer${isReverse ? " reverse" : ""}`} style={{ position: "fixed", right: 0, background: "var(--fifthly)", borderBottomLeftRadius: "100%", zIndex: 999 }}>
                 <ul>
                     <img
-                        ref={logoRef}
                         src={logo}
-                        className="littleLemonLogo"
+                        ref={logoRef}
+                        alt="Little Lemon logo"
+                        className={`littleLemonLogo${isReverse ? " reverse" : ""}`}
                         style={{ zIndex: 999 }}
                         onClick={() => setIsReverse((prev) => !prev)}
                     />

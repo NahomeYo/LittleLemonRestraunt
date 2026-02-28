@@ -18,6 +18,8 @@
   --fifthly: #EAD26E;
   --sixthly: #D3B94F;
   --motion: cubic-bezier(.34, 1.56, .64, 1);
+  --focusRing: 0 0 0 3px rgba(234, 210, 110, 0.6);
+  --elevatedShadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 .primaryButton,
@@ -29,6 +31,7 @@
   justify-content: center;
   font-family: LobsterTwo;
   transition: all 0.5s var(--motion);
+  cursor: pointer;
 }
 
 .primaryButton {
@@ -101,9 +104,23 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
-  width: 100vw;
+  width: 100%;
   position: relative;
   background: linear-gradient(180deg, rgba(246, 242, 231, 1) 14%, rgba(186, 197, 188, 1) 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focusRing);
 }
 
 t {
@@ -177,17 +194,23 @@ p {
   font-weight: normal;
 }
 
-a {
+.dropCap,
+.footerHeading {
   float: end;
   font-size: 1.25rem;
   font-family: LobsterRegular;
   color: var(--thirdly);
 }
 
+.footerHeading {
+  margin: 0;
+}
+
 .navContainer {
   animation: paddingExpand 0.75s var(--motion) forwards;
   padding: 1.5rem 0 6rem 6rem;
   overflow: hidden;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 @keyframes paddingExpand {
@@ -316,12 +339,12 @@ a {
 
 .leaveBtn:nth-of-type(4) {
   offset-distance: 33%;
-  transform: translate(-50px, 30px) scale(0.9);
+  transform: translate(-15px, 40px) scale(0.9);
 }
 
-.leaveBtn:nth-of-type(5) {
-  offset-distance: 0%;
-  transform: translate(-50px, 30px) scale(0.8);
+.leafImg {
+  overflow: visible;
+  object-fit: contain;
 }
 
 .leaveBtn:nth-of-type(1) .leafImg {
@@ -340,11 +363,6 @@ a {
 }
 
 .leaveBtn:nth-of-type(4) .leafImg {
-  animation: leaveTransition 0.75s var(--motion) forwards;
-  transform: rotate(-45deg);
-}
-
-.leaveBtn:nth-of-type(5) .leafImg {
   animation: leaveTransition 0.75s var(--motion) forwards;
   transform: rotate(-90deg);
 }
@@ -558,7 +576,7 @@ form .secondaryButton {
 
 .menuSec {
   border-top: 6px solid var(--secondary);
-  margin: 5rem 0;
+  margin: 5rem;
 }
 
 .sectionCenter {
@@ -576,7 +594,7 @@ form .secondaryButton {
   transform: translateY(-100%);
   width: 100%;
   font-size: 3rem;
-  -webkit-text-stroke: 2.5px var(--secondary);
+  -webkit-text-stroke: 1.25px var(--secondary);
 }
 
 .menuSection:nth-of-type(even) .menuSec t:nth-of-type(1) {
@@ -596,7 +614,7 @@ form .secondaryButton {
   flex-direction: column;
   overflow: hidden;
   position: relative;
-
+  padding-bottom: calc(var(--sectionSpacing) * 5);
 }
 
 .menuHeader {
@@ -718,28 +736,28 @@ form .secondaryButton {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin: var(--margin);
+    margin: 3rem 0;
 }
 
 .menuRow {
   position: absolute;
   top: 50%;
   overflow: hidden;
+  width: 100%;
 }
 
 .menuRowTrack {
   display: flex;
   gap: 2.5rem;
-  width: max-content;
   width: 100%;
 }
 
 .menuSection:nth-of-type(even) .menuRowTrack {
-  animation: menuScroll 5s linear infinite;
+  animation: menuScroll 22s linear infinite;
 }
 
 .menuSection:nth-of-type(odd) .menuRowTrack {
-  animation: menuScrollReverse 5s linear infinite;
+  animation: menuScrollReverse 22s linear infinite;
 }
 
 .menuRow:hover .menuRowTrack {
@@ -799,20 +817,24 @@ form .secondaryButton {
   border-radius: var(--profile);
   background: var(--sixthly);
   margin: 0;
-  padding: 0;
+  padding: 0.5rem;
   color: var(--primary);
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--b);
   transition: all 0.35s ease;
   position: relative;
   left: calc(-1 * calc(var(--profile) * 2));
-  padding-left: 0;
+  padding: 0;
 }
 
 .menuItem:hover .menuItemBody {
   width: 320px;
   transform: translateX(0);
-  padding-left: calc(var(--profile) * 2);
+  padding: calc(var(--padding) / 4) calc(var(--padding) / 3);
+  padding-left: calc(var(--profile) * 2 + (var(--padding) / 3));
 }
 
 .menuItem:hover .menuItemThumb img {
@@ -828,9 +850,10 @@ form .secondaryButton {
 }
 
 .menuItemBody h3 {
+  margin: 0;
   font-family: LobsterRegular;
   font-size: 2rem;
-  color: transparent;
+  color: var(--fifthly);
   text-shadow:
     -1px 0 var(--primary),
     1px 0 var(--primary),
@@ -839,14 +862,17 @@ form .secondaryButton {
 }
 
 .menuItemBody p {
-  color: var(--primary);
+  margin: 0;
+  color: var(--secondary);
   font-size: 0.95rem;
+  font-weight: 900;
 }
 
 .menuItemRating {
   display: flex;
   align-items: center;
   gap: 0.7rem;
+  transform: translateX(-1rem);
 }
 
 .menuItemStars {
@@ -884,6 +910,12 @@ form .secondaryButton {
   padding: 0.35rem 1.4rem;
   width: max-content;
   cursor: pointer;
+  transition: all 0.3s var(--motion);
+}
+
+.menuItemButton:hover {
+  background: var(--primary);
+  color: var(--fourthly);
 }
 
 @media (max-width: 800px) {
@@ -943,6 +975,89 @@ form .secondaryButton {
   height: 2.4rem;
 }
 
+.reservationAuthPanel {
+  width: 100%;
+  z-index: 2;
+  border: 5px solid rgba(246, 242, 231, 0.85);
+  border-radius: 16px;
+  padding: 0.75rem 0.8rem;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.reservationAuthPanel h3 {
+  position: static;
+  padding: 0;
+  margin: 0 0 0.6rem 0;
+  font-size: 1.35rem;
+  color: var(--fourthly);
+  font-family: LobsterTwo;
+  letter-spacing: 0.02rem;
+}
+
+.reservationAuthFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.reservationAuthFields input {
+  border: 3px solid rgba(246, 242, 231, 0.7);
+  border-radius: 10px;
+  height: 2.2rem;
+  padding: 0 0.65rem;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.reservationAuthFields input::placeholder {
+  color: rgba(246, 242, 231, 0.72);
+}
+
+.reservationAuthActions {
+  margin-top: 0.65rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.reservationAuthActions button {
+  flex: 1;
+  min-height: 2.3rem;
+}
+
+.reservationAuthActions .thirdlyButton {
+  background: rgba(73, 94, 87, 0.25);
+  border: 5px solid rgba(73, 94, 87, 0.7);
+  color: rgba(73, 94, 87, 0.85);
+}
+
+.reservationAuthActions .secondaryButton {
+  background: transparent;
+  border: 5px solid rgba(246, 242, 231, 0.9);
+  color: var(--fourthly);
+}
+
+.reservationAuthRow {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reservationAuthRow p {
+  color: var(--fourthly);
+}
+
+.reservationAuthRow .thirdlyButton {
+  min-width: 8rem;
+}
+
+.reservationAuthFeedback {
+  margin-top: 0.5rem;
+  color: var(--fifthly);
+  font-size: 0.85rem;
+}
+
 .reservationBox .lineWrap {
   width: 100%;
   min-height: 68px;
@@ -977,8 +1092,8 @@ form .secondaryButton {
   background: var(--secondary);
   color: var(--fourthly);
   padding: 0 0.6rem;
-  font-family: Neucha;
-  font-size: 1.5rem;
+  font-family: LobsterRegular;
+  font-size: 1rem;
   letter-spacing: 0.04rem;
   z-index: 2;
   font-weight: 900;
@@ -996,6 +1111,26 @@ form .secondaryButton {
   z-index: 2;
   overflow: visible;
   line-height: 1;
+}
+
+.reservationBox .lineWrap select {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+}
+
+.reservationBox .lineWrap select:focus,
+.reservationBox .lineWrap select:active {
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.reservationBox .lineWrap select option {
+  background: var(--secondary);
+  color: var(--fourthly);
 }
 
 .reservationBox {
@@ -1071,7 +1206,8 @@ form .secondaryButton {
   }
 
   .reservationBox .lineWrap h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
+    font-family: Lobster;
     left: 1rem;
     top: -0.85rem;
   }
@@ -1085,15 +1221,28 @@ form .secondaryButton {
     font-size: 1rem;
     height: 2.1rem;
   }
+
+  .reservationAuthFields {
+    grid-template-columns: 1fr;
+  }
+
+  .reservationAuthRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reservationAuthRow .thirdlyButton {
+    width: 100%;
+  }
 }
 
 @keyframes lemonSpinReverse {
   0% {
-    transform: rotate(360deg);
+    transform: rotate(0deg);
   }
 
   100% {
-    transform: rotate(0deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -1144,36 +1293,40 @@ form .secondaryButton {
 }
 
 .lemonLoad {
-  animation: bounceSlice 2s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
+  animation: bounceSlice 1.5s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
 
   img {
     transform-origin: center center;
   }
 
   img:nth-of-type(1) {
-    animation: breakLeft 2s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
+    animation: breakLeft 1.5s var(--motion) forwards;
   }
 
   img:nth-of-type(2) {
-    animation: breakRight 2s cubic-bezier(.37, 1.08, .64, 1.13) forwards;
+    animation: breakRight 1.5s var(--motion) forwards;
   }
 }
 
 @keyframes bounceSlice {
   0% {
-    transform: translateY(-90px);
+    transform: translateY(-120px) scaleY(1);
   }
 
   20% {
-    transform: translateY(0);
+    transform: translateY(0) scaleY(0.75);
   }
 
   40% {
-    transform: translateY(-90px);
+    transform: translateY(-120px) scaleY(1);
   }
 
   60% {
-    transform: translateY(0);
+    transform: translateY(20px) scaleY(0.75);
+  }
+
+  100% {
+    transform: translateY(0) scaleY(1);
   }
 }
 
@@ -1220,6 +1373,163 @@ form .secondaryButton {
   overflow: visible;
 }
 
+.secondaryLoadingContainer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.secondaryLoadingCircle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--thirdly);
+  will-change: width, height;
+  z-index: 1;
+}
+
+.secondaryLoadingContainer.is-expand .secondaryLoadingCircle {
+  animation: secondaryCircleExpand 900ms var(--motion) forwards;
+}
+
+.secondaryLoadingContainer.is-collapse .secondaryLoadingCircle {
+  width: 220vmax;
+  height: 220vmax;
+  animation: secondaryCircleCollapse 700ms var(--motion) forwards;
+}
+
+.OrbitInner,
+.OrbitOuter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center center;
+  z-index: 2;
+}
+
+.OrbitInner {
+  width: 50vw;
+  height: 50vh;
+}
+
+.OrbitOuter {
+  width: 80vw;
+  height: 80vh;
+}
+
+.secondaryLoadingContainer.is-expand .OrbitInner,
+.secondaryLoadingContainer.is-expand .OrbitOuter {
+  animation: secondaryOrbitExpand 900ms var(--motion) forwards;
+}
+
+.secondaryLoadingContainer.is-collapse .OrbitInner,
+.secondaryLoadingContainer.is-collapse .OrbitOuter {
+  transform: translate(-50%, -50%) scale(1);
+  animation: secondaryOrbitCollapse 700ms ease-in-out forwards;
+}
+
+.OrbitSpinner {
+  position: absolute;
+  inset: 0;
+}
+
+.secondaryLoadingContainer.is-expand .OrbitSpinner,
+.secondaryLoadingContainer.is-collapse .OrbitSpinner {
+  animation: secondaryOrbitRotate 3.8s linear infinite;
+}
+
+.secondaryLoadingContainer.is-expand .OrbitSpinnerReverse,
+.secondaryLoadingContainer.is-collapse .OrbitSpinnerReverse {
+  animation-direction: reverse;
+}
+
+.OrbitItemPath {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  --base-angle: calc((360deg / var(--count)) * var(--i));
+  --orbit-radius: min(16vw, 16vh);
+  transform: translate(-50%, -50%) rotate(var(--base-angle)) translateX(var(--orbit-radius));
+  transform-origin: center center;
+}
+
+.OrbitItemPathOuter {
+  --orbit-radius: min(29vw, 29vh);
+}
+
+.OrbitInner .OrbitItem {
+  width: calc(var(--profile));
+  height: var(--profile);
+  display: block;
+  transform-origin: center center;
+}
+
+.OrbitOuter .OrbitItem {
+  width: calc(var(--profile) *1.5);
+  height: calc(var(--profile) *1.5);
+}
+
+@keyframes secondaryCircleExpand {
+  0% {
+    width: 0;
+    height: 0;
+  }
+
+  100% {
+    width: 220vmax;
+    height: 220vmax;
+  }
+}
+
+@keyframes secondaryOrbitExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes secondaryOrbitCollapse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+@keyframes secondaryOrbitRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes secondaryCircleCollapse {
+  0% {
+    width: 220vmax;
+    height: 220vmax;
+  }
+
+  100% {
+    width: 0;
+    height: 0;
+  }
+}
+
 .testimonialStarsMask {
   mask-image: url("./img/stars.png");
   mask-size: 75%;
@@ -1262,10 +1572,117 @@ form .secondaryButton {
 
 .emailInput {
   color: var(--fourthly);
-  font-family:Neucha;
+  font-family: Neucha;
   padding: var(--sectionSpacing);
 }
 
 .emailInput::placeholder {
   text-transform: uppercase;
+}
+
+.homeHero .secondaryButton,
+.TestamonialBox .secondaryButton,
+.SpecialsBox .thirdlyButton,
+.Footer .secondaryButton {
+  box-shadow: var(--elevatedShadow);
+}
+
+.homeHeroContent .secondaryButton,
+.TestamonialBox .secondaryButton,
+.SpecialsBox .thirdlyButton,
+.Footer .secondaryButton {
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .homeHero {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .homeHeroContent {
+    width: 100% !important;
+  }
+
+  .homeHeroImageWrap img {
+    height: 340px !important;
+  }
+
+  .specialsGrid,
+  .testimonialGrid {
+    flex-wrap: wrap;
+  }
+
+  .specialsGrid>.SpecialsSheet {
+    min-width: 240px;
+  }
+
+  .testimonialGrid>.TestamonialSheet {
+    min-width: 220px;
+    flex: 1 1 calc(50% - var(--padding));
+  }
+
+  .infoBox {
+    flex-direction: column;
+  }
+
+  .infoColumn {
+    flex-basis: 100% !important;
+  }
+
+  .infoLogoWrap {
+    width: min(430px, 100%) !important;
+  }
+}
+
+@media (max-width: 850px) {
+  .boxTopRow {
+    flex-wrap: wrap;
+  }
+
+  .boxTopRow .sectionHeader,
+  .boxTopRow .boxHeader {
+    font-size: 3rem;
+  }
+
+  .testimonialGrid>.TestamonialSheet {
+    flex: 1 1 100%;
+  }
+
+  .Footer .content {
+    flex-direction: column;
+  }
+
+  .footerColumn {
+    flex-basis: 100% !important;
+  }
+
+  .footerSubscribe input,
+  .footerSubscribe .secondaryButton {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .footerMeta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .iconRow {
+    width: 100%;
+    justify-content: flex-start !important;
+    gap: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

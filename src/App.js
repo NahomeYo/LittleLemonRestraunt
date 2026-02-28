@@ -1,22 +1,28 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Nav } from "./nav";
 import { Home } from "./Home";
 import { Menu } from "./menu";
 import { Reserve } from "./Reserve";
-import { LoadingScreen } from "./LoadingScreen";
+import { LoadingScreen, SecondaryLoadingScreen } from "./LoadingScreen";
 import { FallingLemonsColored, FallingLemonsOutlineLeft, FallingLemonsOutlineRight } from "./fallingLemons";
 
 export function AppContent() {
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
   const location = useLocation();
   const isReservePage = location.pathname === "/Reserve";
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <>
+      <SecondaryLoadingScreen pageLoading={pageLoading} setPageLoading={setPageLoading} />
       <LoadingScreen loading={loading} setLoading={setLoading} />
-      <Nav />
+      <Nav setPageLoading={setPageLoading} />
       <Routes>
         <Route
           path="/"

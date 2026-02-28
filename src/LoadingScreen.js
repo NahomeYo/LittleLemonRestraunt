@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
 import lemonLeft from "./img/lemonLeftHalf.svg";
 import lemonRight from "./img/lemonLeftRight.svg";
+import lemonInside from "./img/insideLemon.png";
 
 const SPLASH001_D =
   "M56.04113 0 H77.48831 C96.7368 0 112.5216 9.1 97.8277 13 C79.7422 17.79994 83.1331 26 56.04113 26 C33.42527 26 31.16491 20.8 7.41644 13 L7.41644 13 C-11.57226 6.76 9.67536 0 56.04113 0 Z";
@@ -19,13 +20,13 @@ export function LoadingScreen({ loading, setLoading }) {
     <div
       className={`loadingContainer ${loading ? "fadeout" : ""}`}
       style={{
-        zIndex: 999,
         opacity: loading ? 0 : 1,
         pointerEvents: "none",
         background: "var(--thirdly)",
         width: "100%",
         height: "100vh",
         position: "fixed",
+        zIndex: "9998",
         left: 0,
         top: 0,
         transition: "opacity 1s ease",
@@ -64,4 +65,91 @@ export function LoadingScreen({ loading, setLoading }) {
       </div>
     </div>
   );
+}
+
+export function SecondaryLoadingScreen({ pageLoading }) {
+  const [phase, setPhase] = useState("idle");
+  const orbitLemons = Array.from({ length: 8 }, () => lemonInside);
+
+  useEffect(() => {
+    if (pageLoading) {
+      setPhase("expand");
+      return;
+    }
+
+    if (phase !== "idle") {
+      setPhase("collapse");
+    }
+  }, [pageLoading, phase]);
+
+  if (phase === "idle" && !pageLoading) {
+    return null;
+  }
+
+  return (
+    <div
+      className={`secondaryLoadingContainer ${phase === "collapse" ? "is-collapse" : "is-expand"}`}
+      aria-hidden="true"
+    >
+      <div
+        className="secondaryLoadingCircle"
+        onAnimationEnd={() => {
+          if (!pageLoading) {
+            setPhase("idle");
+          }
+        }}
+      />
+
+      <div className="OrbitInner" aria-hidden="true">
+        <div className="OrbitSpinner">
+          {orbitLemons.map((lemon, index) => (
+            <div
+              key={`secondary-orbit-lemon-${index}`}
+              className="OrbitItemPath"
+              style={{
+                "--i": index,
+                "--count": orbitLemons.length,
+              }}
+            >
+              <img
+                className="OrbitItem"
+                src={lemon}
+                alt=""
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="OrbitOuter" aria-hidden="true">
+        <div className="OrbitSpinner OrbitSpinnerReverse">
+          {orbitLemons.map((lemon, index) => (
+            <div
+              key={`secondary-orbit-outer-lemon-${index}`}
+              className="OrbitItemPath OrbitItemPathOuter"
+              style={{
+                "--i": index,
+                "--count": orbitLemons.length,
+              }}
+            >
+              <img
+                className="OrbitItem"
+                src={lemon}
+                alt=""
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function init() {
+  return (
+    <>
+      <LoadingScreen />
+      <SecondaryLoadingScreen />
+    </>
+  )
 }
