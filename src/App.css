@@ -13,7 +13,7 @@
   --boxShadowEffect: 0px 5px 1px 2px var(--primary);
   --primary: #495E57;
   --secondary: #687F6D;
-  --thirdly: #a4b4a7;
+  --thirdly: #98a89b;
   --fourthly: #F6F2E7;
   --fifthly: #EAD26E;
   --sixthly: #D3B94F;
@@ -192,6 +192,7 @@ p {
   font-family: Neucha;
   font-size: 1rem;
   font-weight: normal;
+  font-weight: 600;
 }
 
 .dropCap,
@@ -575,16 +576,18 @@ form .secondaryButton {
 }
 
 .menuSec {
-  border-top: 6px solid var(--secondary);
-  margin: 5rem;
+  border-top: 6px solid #919B8C;
+  margin: 0rem 5rem;
+}
+
+.menuSec>* {
+  position: absolute;
 }
 
 .sectionCenter {
-  margin: 2rem 0;
   position: absolute;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
   left: 50%;
-  top: 50%;
   -webkit-text-stroke: 0px var(--secondary);
   color: var(--thirdly);
   font-size: 6rem;
@@ -736,20 +739,32 @@ form .secondaryButton {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-    margin: 3rem 0;
+  margin: var(--profile) 0;
 }
 
 .menuRow {
-  position: absolute;
-  top: 50%;
+  --menu-gap: 2.5rem;
+  --menu-item-collapsed-width: calc(var(--profile) * 2);
+  --menu-item-expanded-width: 32rem;
+  position: relative;
   overflow: hidden;
   width: 100%;
 }
 
 .menuRowTrack {
   display: flex;
-  gap: 2.5rem;
-  width: 100%;
+  flex-wrap: nowrap;
+  gap: 0;
+  width: max-content;
+  will-change: transform;
+}
+
+.menuRowSet {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--menu-gap);
+  padding-right: var(--menu-gap);
+  flex: 0 0 auto;
 }
 
 .menuSection:nth-of-type(even) .menuRowTrack {
@@ -776,11 +791,11 @@ form .secondaryButton {
 
 @keyframes menuScrollReverse {
   0% {
-    transform: translateX(0);
+    transform: translateX(-50%);
   }
 
   100% {
-    transform: translateX(50%);
+    transform: translateX(0);
   }
 }
 
@@ -792,13 +807,18 @@ form .secondaryButton {
   position: relative;
   overflow: hidden;
   border-radius: var(--profile);
+  width: var(--menu-item-collapsed-width);
+  height: calc(var(--profile) * 2);
+  transition: width 0.35s ease;
+}
+
+.menuItem.isExpanded {
+  width: var(--menu-item-expanded-width);
 }
 
 .menuItemThumb {
-  width: calc(var(--profile) * 2);
+  width: var(--menu-item-collapsed-width);
   height: calc(var(--profile) * 2);
-  overflow: hidden;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
   flex-shrink: 0;
   z-index: 1;
 }
@@ -806,38 +826,37 @@ form .secondaryButton {
 .menuItemThumb img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: fill;
   transform-origin: center center;
 }
 
 .menuItemBody {
-  transform: translateX(-320px);
-  width: 0;
-  height: calc(var(--profile) * 2);
+  position: absolute;
+  padding-left: calc(var(--menu-item-collapsed-width) / 2);
+  opacity: 1;
+  pointer-events: none;
+  width: var(--menu-item-collapsed-width);
+  transform: translateX(calc(-1 * var(--menu-item-collapsed-width)));
+  height: 100%;
   border-radius: var(--profile);
   background: var(--sixthly);
   margin: 0;
-  padding: 0.5rem;
   color: var(--primary);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  gap: var(--b);
-  transition: all 0.35s ease;
-  position: relative;
-  left: calc(-1 * calc(var(--profile) * 2));
-  padding: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s var(--motion);
 }
 
-.menuItem:hover .menuItemBody {
-  width: 320px;
-  transform: translateX(0);
-  padding: calc(var(--padding) / 4) calc(var(--padding) / 3);
-  padding-left: calc(var(--profile) * 2 + (var(--padding) / 3));
+.menuItem.isExpanded .menuItemBody {
+    padding-left: calc(var(--menu-item-collapsed-width) * 2);
+      opacity: 1;
 }
 
-.menuItem:hover .menuItemThumb img {
+.menuItem.isExpanded .menuItemThumb img {
   border-radius: 100% 0 0 100%;
   animation: lemonSpin 0.75s ease-in-out;
 }
@@ -859,6 +878,7 @@ form .secondaryButton {
     1px 0 var(--primary),
     0 -1px var(--primary),
     0 1px var(--primary);
+  line-height: 2rem;
 }
 
 .menuItemBody p {
@@ -928,16 +948,8 @@ form .secondaryButton {
     font-size: 5rem;
   }
 
-  .menuItem {
-    width: 160px;
-  }
-
-  .menuItem:hover {
-    width: 420px;
-  }
-
-  .menuItem:hover .menuItemBody {
-    width: 260px;
+  .menuRow {
+    --menu-item-expanded-width: 26rem;
   }
 }
 
@@ -946,20 +958,13 @@ form .secondaryButton {
     height: 60px;
   }
 
-  .menuRowTrack {
-    gap: 1.5rem;
+  .menuRow {
+    --menu-gap: 1.5rem;
+    --menu-item-expanded-width: 22rem;
   }
 
   .menuItem {
-    width: 140px;
-  }
-
-  .menuItem:hover {
-    width: 340px;
-  }
-
-  .menuItem:hover .menuItemBody {
-    width: 200px;
+    height: calc(var(--profile) * 2);
   }
 }
 
@@ -1126,6 +1131,14 @@ form .secondaryButton {
 .reservationBox .lineWrap select:active {
   box-shadow: none;
   background-color: transparent;
+}
+
+.reservationBox input:focus,
+.reservationBox input:focus-visible,
+.reservationBox select:focus,
+.reservationBox select:focus-visible {
+  box-shadow: none;
+  outline: none;
 }
 
 .reservationBox .lineWrap select option {

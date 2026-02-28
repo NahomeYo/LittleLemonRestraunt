@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Footer from "./Footer.js";
 import "./App.css";
 import Bread from "./menuItems/bread.png";
@@ -20,6 +21,8 @@ import Waffle from "./menuItems/waffle.png";
 import starWidthBar from "./img/starWidthBar.png";
 
 export function Menu() {
+    const [hoveredItemKey, setHoveredItemKey] = useState(null);
+
     const sections = [
         {
             title: "Appetizers",
@@ -66,43 +69,61 @@ export function Menu() {
                 {sections.map((section) => (
                     <section key={section.title} className="menuSection" style = {{ overflow: "visible" }}>
                         <div className="menuSec" style={{ position: "relative", display: "flex" }}>
-                            <t style = {{ textTransform: "none", color: "var(--fourthly)"}}>{section.title}</t>
+                            <t style = {{ textTransform: "none", color: "#919B8C", WebkitTextStroke: "0", fontFamily: "LobsterTwoItalic"}}>{section.title}</t>
                             <t className="sectionCenter" style = {{ color: "var(--secondary)" }}>{section.title}</t>
                         </div>
                         <div className="menuRow">
                             <div className="menuRowTrack" style = {{ overflow: "visible" }}>
-                                {[...section.items, ...section.items].map((item, index) => (
-                                    <article key={`${item.name}-${index}`} className="menuItem">
-                                        <div className="menuItemThumb">
-                                            <img src={item.img} alt={item.name} />
-                                        </div>
-                                        <div className="menuItemBody">
-                                            <h3>{item.name}</h3>
-                                            <p>{item.description}</p>
-                                            <div className="menuItemRating">
-                                                <div
-                                                    className="testimonialStarsMask"
-                                                    style={{
-                                                        width: "7.3rem",
-                                                        height: "1.4rem",
-                                                        position: "relative",
-                                                    }}
-                                                >
-                                                    <img
-                                                        src={starWidthBar}
-                                                        alt=""
-                                                        style={{
-                                                            width: `${item.percentage}%`,
-                                                            height: "100%",
-                                                            objectFit: "cover",
-                                                            objectPosition: "left center",
-                                                            filter: "brightness(1.25)"
-                                                        }}
-                                                    />
+                                {[0, 1].map((copyIndex) => (
+                                    <div
+                                        key={`${section.title}-copy-${copyIndex}`}
+                                        className={`menuRowSet${copyIndex === 1 ? " menuRowSetDuplicate" : ""}`}
+                                        aria-hidden={copyIndex === 1}
+                                    >
+                                        {section.items.map((item) => {
+                                            const itemKey = `${section.title}-${copyIndex}-${item.name}`;
+                                            const isExpanded = hoveredItemKey === itemKey;
+
+                                            return (
+                                            <article
+                                                key={`${copyIndex}-${item.name}`}
+                                                className={`menuItem${isExpanded ? " isExpanded" : ""}`}
+                                                onMouseEnter={() => setHoveredItemKey(itemKey)}
+                                                onMouseLeave={() => setHoveredItemKey(null)}
+                                            >
+                                                <div className="menuItemThumb">
+                                                    <img src={item.img} alt={item.name} />
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </article>
+                                                <div className="menuItemBody">
+                                                    <h3>{item.name}</h3>
+                                                    <p>{item.description}</p>
+                                                    <div className="menuItemRating">
+                                                        <div
+                                                            className="testimonialStarsMask"
+                                                            style={{
+                                                                width: "7.3rem",
+                                                                height: "1.4rem",
+                                                                position: "relative",
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={starWidthBar}
+                                                                alt=""
+                                                                style={{
+                                                                    width: `${item.percentage}%`,
+                                                                    height: "100%",
+                                                                    objectFit: "cover",
+                                                                    objectPosition: "left center",
+                                                                    filter: "brightness(1.25)"
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                            );
+                                        })}
+                                    </div>
                                 ))}
                             </div>
                         </div>
